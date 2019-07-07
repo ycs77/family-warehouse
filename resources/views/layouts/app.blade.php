@@ -63,15 +63,6 @@
                         <span class="dashboard-sidebar-toggler-icon"></span>
                     </button>
                 </div>
-
-                <?php
-                /*@ breadcrumb([
-                    'items' => $menu->breadcrumbList([
-                        ['name' => '我的', 'url' => route('my')],
-                    ]),
-                ])
-                @ endbreadcrumb*/
-                ?>
             </div>
 
             <div class="dashboard-content">

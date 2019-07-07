@@ -42,7 +42,15 @@
     <div class="dashboard-container">
         <div class="dashboard-sidebar">
             <ul class="nav navbar-nav nav-root dashboard-sidebar-sticky">
-                <li class="nav-item">
+                <li class="nav-item @active(route('home'))">
+                    <a class="nav-link" href="{{ route('home') }}">
+                        <div class="nav-link-icon">
+                            <i class="fas fa-fw fa-home"></i>
+                        </div>
+                        <div class="nav-link-name">首頁</div>
+                    </a>
+                </li>
+                <li class="nav-item @active('item')">
                     <a class="nav-link" href="#" onclick="event.preventDefault()">
                         <div class="nav-link-icon">
                             <i class="fas fa-fw fa-user"></i>

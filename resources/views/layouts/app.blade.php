@@ -1,7 +1,7 @@
 @extends('layouts.html')
 
 @section('layout-content')
-    <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name') }}
         </a>
@@ -39,7 +39,44 @@
         </div>
     </nav>
 
-    <main class="py-3">
-        @yield('content')
-    </main>
+    <div class="dashboard-container">
+        <div class="dashboard-sidebar">
+            <ul class="nav navbar-nav nav-root dashboard-sidebar-sticky">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="event.preventDefault()">
+                        <div class="nav-link-icon">
+                            <i class="fas fa-fw fa-user"></i>
+                        </div>
+                        <div class="nav-link-name">項目</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="dashboard-sidebar-overlay"></div>
+
+        <div class="dashboard-content-wrapper">
+            @include('includes.alerts', ['full' => true])
+
+            <div class="dashboard-breadcrumb">
+                <div>
+                    <button class="dashboard-sidebar-toggler" type="button" aria-label="Toggle navigation">
+                        <span class="dashboard-sidebar-toggler-icon"></span>
+                    </button>
+                </div>
+
+                <?php
+                /*@ breadcrumb([
+                    'items' => $menu->breadcrumbList([
+                        ['name' => '我的', 'url' => route('my')],
+                    ]),
+                ])
+                @ endbreadcrumb*/
+                ?>
+            </div>
+
+            <div class="dashboard-content">
+                @yield('content')
+            </div>
+        </div>
+    </div>
 @endsection

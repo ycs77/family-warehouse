@@ -23542,7 +23542,26 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // Dashboard sidebar
+
+
+var sidebarToggler = document.querySelector('.dashboard-sidebar-toggler');
+
+if (sidebarToggler) {
+  sidebarToggler.addEventListener('click', function () {
+    document.body.classList.add('show-modal');
+    document.querySelector('.dashboard-sidebar').classList.add('show');
+  });
+}
+
+var sidebarOverlay = document.querySelector('.dashboard-sidebar-overlay');
+
+if (sidebarOverlay) {
+  sidebarOverlay.addEventListener('click', function () {
+    document.body.classList.remove('show-modal');
+    document.querySelector('.dashboard-sidebar').classList.remove('show');
+  });
+}
 
 /***/ }),
 

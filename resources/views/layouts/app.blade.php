@@ -1,7 +1,7 @@
 @extends('layouts.html')
 
 @section('layout-content')
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name') }}
         </a>
@@ -42,7 +42,7 @@
     <div class="dashboard-container">
         {{-- Dashboard Sidebar --}}
         <div class="dashboard-sidebar">
-            <ul class="nav navbar-nav nav-root dashboard-sidebar-sticky">
+            <ul class="nav navbar-nav nav-root dashboard-sidebar-content">
                 <li class="nav-item @active(route('home'))">
                     <a class="nav-link" href="{{ route('home') }}">
                         <div class="nav-link-icon">

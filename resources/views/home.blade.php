@@ -5,7 +5,7 @@
 @section('breadcrumbs', Breadcrumbs::render('home'))
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid py-2">
         <h4>Home</h4>
         <hr>
         <p class="lead">Text...</p>

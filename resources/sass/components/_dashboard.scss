@@ -78,7 +78,7 @@
   margin: 0;
 }
 
-.dashboard-sidebar-sticky {
+.dashboard-sidebar-content {
   position: sticky;
   top: $navbar-height;
 }
@@ -96,6 +96,8 @@
 
 .dashboard-content-wrapper {
   max-width: 100%;
+  min-height: calc(100vh - #{$navbar-height});
+  padding-top: $navbar-height;
   flex: 1;
 }
 

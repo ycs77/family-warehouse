@@ -12,7 +12,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
+                {{-- Authentication Links --}}
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -40,6 +40,7 @@
     </nav>
 
     <div class="dashboard-container">
+        {{-- Dashboard Sidebar --}}
         <div class="dashboard-sidebar">
             <ul class="nav navbar-nav nav-root dashboard-sidebar-sticky">
                 <li class="nav-item @active(route('home'))">
@@ -62,6 +63,7 @@
         </div>
         <div class="dashboard-sidebar-overlay"></div>
 
+        {{-- Dashboard Content --}}
         <div class="dashboard-content-wrapper">
             @include('includes.alerts', ['full' => true])
 
@@ -71,6 +73,8 @@
                         <span class="dashboard-sidebar-toggler-icon"></span>
                     </button>
                 </div>
+
+                @yield('breadcrumbs')
             </div>
 
             <div class="dashboard-content">

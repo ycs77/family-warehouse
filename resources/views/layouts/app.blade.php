@@ -43,7 +43,7 @@
         {{-- Dashboard Sidebar --}}
         <div class="dashboard-sidebar">
             <ul class="nav navbar-nav nav-root dashboard-sidebar-content">
-                <li class="nav-item @active(route('home'))">
+                <li class="nav-item @active('home')">
                     <a class="nav-link" href="{{ route('home') }}">
                         <div class="nav-link-icon">
                             <i class="fas fa-fw fa-home"></i>
@@ -51,14 +51,16 @@
                         <div class="nav-link-name">首頁</div>
                     </a>
                 </li>
-                <li class="nav-item @active('item')">
-                    <a class="nav-link" href="#" onclick="event.preventDefault()">
-                        <div class="nav-link-icon">
-                            <i class="fas fa-fw fa-user"></i>
-                        </div>
-                        <div class="nav-link-name">項目</div>
-                    </a>
-                </li>
+                @can('admin', App\User::class)
+                    <li class="nav-item @active('users.*')">
+                        <a class="nav-link" href="{{ route('users.index') }}">
+                            <div class="nav-link-icon">
+                                <i class="fas fa-fw fa-user"></i>
+                            </div>
+                            <div class="nav-link-name">用戶管理</div>
+                        </a>
+                    </li>
+                @endcan
             </ul>
         </div>
         <div class="dashboard-sidebar-overlay"></div>

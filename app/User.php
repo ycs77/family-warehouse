@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'password', 'is_admin',
+        'name', 'username', 'password', 'permission',
     ];
 
     /**
@@ -27,12 +28,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'is_admin' => 'boolean',
-    ];
+    public function isCantDeprivation()
+    {
+        if (Auth::user()->id === $this->id || $this->username === 'admin') {
+            return true;
+        }
+
+        return false;
+    }
 }

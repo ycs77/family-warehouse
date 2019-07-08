@@ -1,8 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::middleware('auth')->group(function () {
+    // Main
+    Route::get('/', 'HomeController@index')->name('home');
+
+    // User
+    Route::get('users/{user}/password', 'UserController@password')->name('users.password');
+    Route::put('users/{user}/password', 'UserController@updatePassword')->name('users.password.update');
+    Route::resource('users', 'UserController');
+});
 
 Auth::routes([
     'register' => false,

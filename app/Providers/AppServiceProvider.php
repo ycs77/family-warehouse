@@ -32,8 +32,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('components.breadcrumb', 'breadcrumb');
 
         // Custom Blade Directive
-        Blade::directive('active', function ($url) {
-            return "<?php echo $url === request()->url() ? 'active' : ''; ?>";
+        Blade::directive('active', function ($routeName) {
+            return "<?php echo \Illuminate\Support\Str::is($routeName, request()->route()->getName()) ? 'active' : ''; ?>";
         });
     }
 }

@@ -4,7 +4,7 @@ use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class TestDataSeeder extends Seeder
+class InitialData extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,9 +14,10 @@ class TestDataSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Test',
-            'username' => 'test',
+            'name' => '管理員',
+            'username' => 'admin',
             'password' => Hash::make('password'),
+            'permission' => 'admin',
         ]);
     }
 }

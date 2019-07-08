@@ -11300,3 +11300,40 @@ a.text-dark:focus {
   }
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: bold;
+}
+
+.alert-full {
+  margin: 0;
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+
+.pagination {
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+
+.table-show th:first-child {
+  width: 200px;
+  text-align: right;
+}
+
+@media (max-width: 480px) {
+  .table-show th:first-child {
+    width: 33%;
+  }
+}
+

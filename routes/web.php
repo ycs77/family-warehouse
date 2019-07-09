@@ -13,6 +13,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', 'UserController');
 
     // Category
+    Route::get('categories/create', 'CategoryController@create')->name('categories.create');
     Route::get('categories/{category}', 'CategoryController@show')->name('category');
     Route::resource('categories', 'CategoryController')->except('show');
 });

@@ -9,6 +9,8 @@
         <h1 class="h3">{{ $category->name }}</h1>
         <hr class="my-2">
 
+        <p class="lead">{{ $category->description }}</p>
+
         @if ($category->children->count())
             <div class="card">
                 <h5 class="px-3 pt-3 m-0">子分類</h5>

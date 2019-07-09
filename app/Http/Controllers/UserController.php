@@ -36,7 +36,7 @@ class UserController extends Controller
         $this->passwordFormFields = $passwordFormFields;
 
         $this->middleware(function ($request, $next) {
-            $this->authorize('admin', User::class);
+            $this->authorize('edit', User::class);
             return $next($request);
         });
     }
@@ -113,7 +113,7 @@ class UserController extends Controller
         ], $this->editFormFields->fields());
 
         if ($user->isCantDeprivation()) {
-            $form->remove('permission');
+            $form->remove('role');
         }
 
         return view('users.edit', compact('user', 'form'));

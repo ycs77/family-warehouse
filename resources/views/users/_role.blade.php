@@ -1,4 +1,4 @@
-@switch($permission)
+@switch($role)
     @case('admin')
         <span class="badge badge-pill badge-danger">管理員</span>
         @break

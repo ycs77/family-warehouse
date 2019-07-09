@@ -52,7 +52,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $isChildUser = User::where('username', $request->input('username'))
-            ->where('permission', 'child')
+            ->where('role', 'child')
             ->count() > 0;
 
         if ($isChildUser) {

@@ -100,4 +100,16 @@ return [
         ],
     ],
 
+    'roles' => [
+        'user' => [
+            'categories-view',
+        ],
+        'child' => [],
+        'admin' => [
+            'users-edit',
+            'categories-edit',
+            'categories-view',
+        ],
+    ],
+
 ];

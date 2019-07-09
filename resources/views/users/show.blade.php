@@ -22,8 +22,8 @@
                 <tr>
                     <th>權限</th>
                     <td>
-                        @component('users/_permission')
-                            @slot('permission', $user->permission)
+                        @component('users/_role')
+                            @slot('role', $user->role)
                         @endcomponent
                     </td>
                 </tr>

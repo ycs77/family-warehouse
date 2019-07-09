@@ -31,8 +31,8 @@
                             <td><a href="{{ route('users.show', $user) }}">{{ $user->name }}</a></td>
                             <td>{{ $user->username }}</td>
                             <td>
-                                @component('users/_permission')
-                                    @slot('permission', $user->permission)
+                                @component('users/_role')
+                                    @slot('role', $user->role)
                                 @endcomponent
                             </td>
                             <td>

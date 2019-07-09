@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\FormFields\CategoryFormFields;
 use App\Http\Controllers\Traits\WithStatus;
-use App\User;
 use Illuminate\Http\Request;
 use Ycs77\LaravelFormFieldType\Traits\FormFieldsTrait;
 
@@ -25,10 +24,11 @@ class CategoryController extends Controller
     {
         $this->formFields = $formFields;
 
-        // $this->middleware(function ($request, $next) {
-        //     $this->authorize('admin', Category::class);
-        //     return $next($request);
-        // });
+        // Edit permission
+        $this->middleware(function ($request, $next) {
+            $this->authorize('edit', Category::class);
+            return $next($request);
+        })->except('show');
     }
 
     /**
@@ -38,8 +38,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $this->authorize('admin', User::class);
-
         $categories = Category::withDepth()->get()->toTree();
 
         return view('categories.index', compact('categories'));
@@ -89,6 +87,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $this->authorize('view', Category::class);
+
         return view('categories.show', compact('category'));
     }
 

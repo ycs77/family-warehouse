@@ -28,7 +28,7 @@ class UserFormFields extends FormFields
             'password_confirmation' => [
                 'type' => 'password',
             ],
-            'permission' => [
+            'role' => [
                 'type' => 'checkable_group',
                 'choices' => [
                     'user',

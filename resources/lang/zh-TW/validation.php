@@ -174,7 +174,7 @@ return [
         'username'              => '帳號',
         'year'                  => '年',
         'submit' => '送出',
-        'permission' => '權限',
+        'role' => '權限',
         'admin' => '管理員',
         'user' => '用戶',
         'child' => '小孩',

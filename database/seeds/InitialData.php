@@ -17,7 +17,7 @@ class InitialData extends Seeder
             'name' => '管理員',
             'username' => 'admin',
             'password' => Hash::make('password'),
-            'permission' => 'admin',
+            'role' => 'admin',
         ]);
     }
 }

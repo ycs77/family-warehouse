@@ -14,7 +14,7 @@
 
         {{-- Other nodes --}}
         @foreach ($categories as $category)
-            @if (!$current->isSelfOrChild($category))
+            @if ($current ? !$current->isSelfOrChild($category) : true)
                 <div class="d-flex">
                     @for ($i = 0; $i < $category->depth; $i++)
                         <div class="indent"></div>

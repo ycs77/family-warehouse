@@ -1,0 +1,11 @@
+.list-nested {
+  margin-bottom: 1rem;
+
+  .list-group-child-item {
+    display: flex;
+  }
+}
+
+.indent {
+  width: 2rem;
+}

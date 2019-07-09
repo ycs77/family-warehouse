@@ -51,6 +51,18 @@
                         <div class="nav-link-name">首頁</div>
                     </a>
                 </li>
+
+                @foreach ($menuCategories as $menuCategory)
+                    <li class="nav-item @category_active($menuCategory)">
+                        <a class="nav-link" href="{{ route('category', $menuCategory) }}">
+                            <div class="nav-link-icon">
+                                <i class="{{ $menuCategory->icon ? $menuCategory->icon : 'fas fa-cube' }} fa-fw"></i>
+                            </div>
+                            <div class="nav-link-name">{{ $menuCategory->name }}</div>
+                        </a>
+                    </li>
+                @endforeach
+
                 @can('admin', App\User::class)
                     <li class="nav-item @active('users.*')">
                         <a class="nav-link" href="{{ route('users.index') }}">
@@ -58,6 +70,14 @@
                                 <i class="fas fa-fw fa-user"></i>
                             </div>
                             <div class="nav-link-name">用戶管理</div>
+                        </a>
+                    </li>
+                    <li class="nav-item @active('categories.*')">
+                        <a class="nav-link" href="{{ route('categories.index') }}">
+                            <div class="nav-link-icon">
+                                <i class="fas fa-fw fa-cubes"></i>
+                            </div>
+                            <div class="nav-link-name">分類管理</div>
                         </a>
                     </li>
                 @endcan

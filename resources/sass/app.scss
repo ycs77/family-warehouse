@@ -19,6 +19,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   border-radius: 0;
 }
 
+.required::before {
+  content: '*';
+  color: $red;
+  margin-right: 0.25rem;
+}
+
 .pagination {
   justify-content: center;
 }

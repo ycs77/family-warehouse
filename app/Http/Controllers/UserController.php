@@ -60,7 +60,7 @@ class UserController extends Controller
     public function create()
     {
         $form = $this->renderForm([
-            'url'    => route('users.store'),
+            'url' => route('users.store'),
             'method' => 'POST',
         ]);
 
@@ -107,7 +107,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $form = $this->renderForm([
-            'url'    => route('users.update', $user),
+            'url' => route('users.update', $user),
             'method' => 'PUT',
             'model'  => $user,
         ], $this->editFormFields->fields());
@@ -164,7 +164,7 @@ class UserController extends Controller
     public function password(User $user)
     {
         $form = $this->renderForm([
-            'url'    => route('users.password.update', $user),
+            'url' => route('users.password.update', $user),
             'method' => 'PUT',
         ], $this->passwordFormFields->fields());
 

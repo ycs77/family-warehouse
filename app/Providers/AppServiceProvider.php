@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Category;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,6 +36,14 @@ class AppServiceProvider extends ServiceProvider
         // Custom Blade Directive
         Blade::directive('active', function ($routeName) {
             return "<?php echo \Illuminate\Support\Str::is($routeName, request()->route()->getName()) ? 'active' : ''; ?>";
+        });
+        Blade::directive('category_active', function ($category) {
+            return "<?php echo {$category}->isSelfOrChild(request()->category) ? 'active' : ''; ?>";
+        });
+
+        // View share
+        View::composer('layouts.app', function ($view) {
+            $view->with('menuCategories', Category::whereIsRoot()->get());
         });
     }
 }

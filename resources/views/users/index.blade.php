@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container-fluid py-2">
-        <h4>用戶管理</h4>
+        <h1 class="h3">用戶管理</h1>
         <hr class="my-2">
 
         <div class="mb-2">
@@ -64,8 +64,8 @@
     <script>
     $('.btn-user-destroy').click(function (e) {
         e.preventDefault();
-        id = $(this).closest('tr').data('id');
-        name = $(this).closest('tr').data('name');
+        let id = $(this).closest('tr').data('id');
+        let name = $(this).closest('tr').data('name');
         if (confirm('確定要刪除用戶 ' + name + ' ?')) {
             $('#form-user-destroy')
                 .attr('action', '{{ route('users.destroy', '%') }}'.replace('%', id))

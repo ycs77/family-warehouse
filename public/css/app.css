@@ -11300,6 +11300,19 @@ a.text-dark:focus {
   }
 }
 
+.list-nested {
+  margin-bottom: 1rem;
+}
+
+.list-nested .list-group-child-item {
+  display: -webkit-box;
+  display: flex;
+}
+
+.indent {
+  width: 2rem;
+}
+
 h1,
 h2,
 h3,
@@ -11319,6 +11332,12 @@ h6,
   margin: 0;
   border-width: 0 0 1px;
   border-radius: 0;
+}
+
+.required::before {
+  content: "*";
+  color: #dc3545;
+  margin-right: 0.25rem;
 }
 
 .pagination {

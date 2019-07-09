@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container-fluid py-2">
-        <h4>修改用戶密碼</h4>
+        <h1 class="h3">修改用戶密碼</h1>
         <hr class="my-2">
 
         {!! form($form) !!}

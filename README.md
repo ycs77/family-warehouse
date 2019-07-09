@@ -20,6 +20,12 @@ cp .env.example .env
 php artisan key:generate
 ```
 
+遷移資料表
+
+```
+php artisan migrate
+```
+
 設置初始資料
 
 ```

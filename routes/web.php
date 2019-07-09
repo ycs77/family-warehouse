@@ -11,6 +11,10 @@ Route::middleware('auth')->group(function () {
     Route::get('users/{user}/password', 'UserController@password')->name('users.password');
     Route::put('users/{user}/password', 'UserController@updatePassword')->name('users.password.update');
     Route::resource('users', 'UserController');
+
+    // Category
+    Route::get('categories/{category}', 'CategoryController@show')->name('category');
+    Route::resource('categories', 'CategoryController')->except('show');
 });
 
 Auth::routes([

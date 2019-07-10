@@ -30,14 +30,13 @@
 
 @push('script')
     <script>
-    $('.btn-destroy').click(function (e) {
-        e.preventDefault();
+    $('.btn-destroy').click(function () {
         let id = $(this).closest('li').data('id');
         let name = $(this).closest('li').data('name');
         let has_child = $(this).closest('li').data('has-child');
         let confirm_text = has_child
-            ? '確定要刪除分類 ' + name + ' 及所有子分類? (此動作將無法還原)'
-            : '確定要刪除分類 ' + name + ' ? (此動作將無法還原)';
+            ? '確定要刪除分類 ' + name + ' 及所有子分類? (不會刪除物品)'
+            : '確定要刪除分類 ' + name + ' ? (不會刪除物品)';
 
         if (confirm(confirm_text)) {
             $('#form-destroy')

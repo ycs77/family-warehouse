@@ -11,6 +11,13 @@
 
         <p class="lead">{{ $category->description }}</p>
 
+        @can('edit', \App\Category::class)
+            <div class="mb-3">
+                <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-success">修改</a>
+                <button class="btn btn-sm btn-danger btn-destroy">刪除</button>
+            </div>
+        @endcan
+
         @if ($category->children->count())
             <div class="card mb-4">
                 <h5 class="px-3 pt-3 m-0">子分類</h5>
@@ -54,4 +61,21 @@
             </div>
         @endif
     </div>
+
+    <form id="form-destroy" action="#" method="POST">
+        @csrf
+        @method('DELETE')
+    </form>
 @endsection
+
+@push('script')
+    <script>
+    $('.btn-destroy').click(function () {
+        if (confirm('{{ $category->children->count() ? "確定要刪除分類 {$category->name} 及所有子分類? (不會刪除物品)" : "確定要刪除分類 {$category->name}? (不會刪除物品)" }}')) {
+            $('#form-destroy')
+                .attr('action', '{{ route('categories.destroy', $category) }}')
+                .submit();
+        }
+    });
+    </script>
+@endpush

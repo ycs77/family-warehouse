@@ -23,7 +23,7 @@
             @endif
 
             <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-success">修改</a>
-            <button class="btn btn-sm btn-danger btn-destroy">刪除</button>
+            <button type="button" class="btn btn-sm btn-danger btn-destroy">刪除</button>
         </div>
     </li>
 

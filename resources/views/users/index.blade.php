@@ -40,9 +40,9 @@
                                 <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-success">修改</a>
                                 <a href="{{ route('users.password', $user) }}" class="btn btn-sm btn-warning">修改密碼</a>
                                 @if (!$user->isCantDeprivation())
-                                    <button class="btn btn-sm btn-danger btn-destroy">刪除</button>
+                                    <button type="button" class="btn btn-sm btn-danger btn-destroy">刪除</button>
                                 @else
-                                    <button class="btn btn-sm btn-danger" disabled>刪除</button>
+                                    <button type="button" class="btn btn-sm btn-danger" disabled>刪除</button>
                                 @endif
                             </td>
                         </tr>
@@ -66,8 +66,7 @@
 
 @push('script')
     <script>
-    $('.btn-destroy').click(function (e) {
-        e.preventDefault();
+    $('.btn-destroy').click(function () {
         let id = $(this).closest('tr').data('id');
         let name = $(this).closest('tr').data('name');
         if (confirm('確定要刪除用戶 ' + name + ' ?')) {

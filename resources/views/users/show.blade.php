@@ -9,6 +9,14 @@
         <h4>用戶 {{ $user->name }}</h4>
         <hr class="my-2">
 
+        <div class="mb-3">
+            <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-success">修改</a>
+            <a href="{{ route('users.password', $user) }}" class="btn btn-sm btn-warning">修改密碼</a>
+            @if (!$user->isCantDeprivation())
+                <button type="button" class="btn btn-sm btn-danger btn-destroy">刪除</button>
+            @endif
+        </div>
+
         <div class="table-responsive">
             <table class="table table-show">
                 <tr>
@@ -58,6 +66,23 @@
                     </tr>
                 @endif
             </table>
+
+            <form id="form-destroy" action="#" method="POST">
+                @csrf
+                @method('DELETE')
+            </form>
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+    $('.btn-destroy').click(function (e) {
+        if (confirm('確定要刪除用戶 {{ $user->name }} ?')) {
+            $('#form-destroy')
+                .attr('action', '{{ route('users.destroy', $user) }}')
+                .submit();
+        }
+    });
+    </script>
+@endpush

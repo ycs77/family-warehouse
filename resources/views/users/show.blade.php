@@ -27,6 +27,22 @@
                         @endcomponent
                     </td>
                 </tr>
+                @if ($user->role !== 'child')
+                    <tr>
+                        <th class="py-4">代管小孩</th>
+                        <td>
+                            <div class="list-group">
+                                @forelse ($user->children as $child)
+                                    <a href="{{ route('users.show', $child) }}" class="list-group-item list-group-item-action">
+                                        {{ $child->name }}
+                                    </a>
+                                @empty
+                                    <div class="list-group-item text-center text-muted">沒有代管小孩...</div>
+                                @endforelse
+                            </div>
+                        </td>
+                    </tr>
+                @endif
             </table>
         </div>
     </div>

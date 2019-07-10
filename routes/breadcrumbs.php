@@ -12,7 +12,7 @@ Breadcrumbs::for('users.index', function ($trail) {
 
 Breadcrumbs::for('users.show', function ($trail, $user) {
     $trail->parent('users.index');
-    $trail->push('用戶 ' . $user->name, route('users.show', $user));
+    $trail->push($user->name, route('users.show', $user));
 });
 
 Breadcrumbs::for('users.create', function ($trail) {

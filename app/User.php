@@ -36,4 +36,16 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function children()
+    {
+        return $this->belongsToMany(User::class, 'user_children', 'user_id', 'child_id')
+            ->where('role', 'child');
+    }
+
+    public function parents()
+    {
+        return $this->belongsToMany(User::class, 'user_children', 'child_id', 'user_id')
+            ->where('role', '<>', 'child');
+    }
 }

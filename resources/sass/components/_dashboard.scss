@@ -5,9 +5,8 @@
 
 .dashboard-sidebar {
   width: 200px;
-  min-height: calc(100vh - #{$navbar-height});
-  border-right: 1px solid $gray-300;
-  background-color: $light;
+  min-height: 100vh;
+  border-right: 1px solid rgba($black, .125);
 
   &.show {
     transform: translateX(0%);
@@ -31,22 +30,27 @@
     transform: translateX(0%);
   }
 
+  .nav-item {
+    @include hover {
+      background-color: darken($white, 5%);
+    }
+  }
+  .nav-root > .nav-item.active {
+    background-color: darken($white, 7%);
+    box-shadow: inset 4px 0 0 $primary;
+  }
+  .nav-item.active > .nav-link {
+    color: $primary;
+    font-weight: 700;
+  }
+
   .nav-link {
     display: flex;
     padding: 0.75rem;
     color: $gray-700;
     @include hover {
       color: $gray-900;
-      background-color: rgba($black, 0.03);
     }
-  }
-  .nav-root > .nav-item.active {
-    background-color: $gray-100;
-    box-shadow: inset 4px 0 0 $primary;
-  }
-  .nav-item.active > .nav-link {
-    color: $primary;
-    font-weight: 700;
   }
 
   .nav-link-icon {
@@ -96,7 +100,7 @@
 
 .dashboard-content-wrapper {
   max-width: 100%;
-  min-height: calc(100vh - #{$navbar-height});
+  min-height: 100vh;
   padding-top: $navbar-height;
   flex: 1;
 }

@@ -11124,9 +11124,8 @@ a.text-dark:focus {
 
 .dashboard-sidebar {
   width: 200px;
-  min-height: calc(100vh - 3.5rem);
-  border-right: 1px solid #dee2e6;
-  background-color: #f8f9fa;
+  min-height: 100vh;
+  border-right: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .dashboard-sidebar.show {
@@ -11161,6 +11160,20 @@ a.text-dark:focus {
   }
 }
 
+.dashboard-sidebar .nav-item:hover {
+  background-color: #f2f2f2;
+}
+
+.dashboard-sidebar .nav-root > .nav-item.active {
+  background-color: #ededed;
+  box-shadow: inset 4px 0 0 #ec1f1f;
+}
+
+.dashboard-sidebar .nav-item.active > .nav-link {
+  color: #ec1f1f;
+  font-weight: 700;
+}
+
 .dashboard-sidebar .nav-link {
   display: -webkit-box;
   display: flex;
@@ -11170,17 +11183,6 @@ a.text-dark:focus {
 
 .dashboard-sidebar .nav-link:hover {
   color: #212529;
-  background-color: rgba(0, 0, 0, 0.03);
-}
-
-.dashboard-sidebar .nav-root > .nav-item.active {
-  background-color: #f8f9fa;
-  box-shadow: inset 4px 0 0 #ec1f1f;
-}
-
-.dashboard-sidebar .nav-item.active > .nav-link {
-  color: #ec1f1f;
-  font-weight: 700;
 }
 
 .dashboard-sidebar .nav-link-icon {
@@ -11233,7 +11235,7 @@ a.text-dark:focus {
 
 .dashboard-content-wrapper {
   max-width: 100%;
-  min-height: calc(100vh - 3.5rem);
+  min-height: 100vh;
   padding-top: 3.5rem;
   -webkit-box-flex: 1;
           flex: 1;

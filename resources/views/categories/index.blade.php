@@ -17,13 +17,11 @@
             @include('categories._nested_category')
         @empty
             <ul class="list-group list-nested">
-                <li class="list-group-item text-center">
-                    <a href="{{ route('categories.create') }}" class="btn btn-sm btn-success">新增分類</a>
-                </li>
+                <li class="list-group-item text-center text-muted">無</li>
             </ul>
         @endforelse
 
-        <form id="form-category-destroy" action="#" method="POST">
+        <form id="form-destroy" action="#" method="POST">
             @csrf
             @method('DELETE')
         </form>
@@ -32,7 +30,7 @@
 
 @push('script')
     <script>
-    $('.btn-category-destroy').click(function (e) {
+    $('.btn-destroy').click(function (e) {
         e.preventDefault();
         let id = $(this).closest('li').data('id');
         let name = $(this).closest('li').data('name');
@@ -42,7 +40,7 @@
             : '確定要刪除分類 ' + name + ' ? (此動作將無法還原)';
 
         if (confirm(confirm_text)) {
-            $('#form-category-destroy')
+            $('#form-destroy')
                 .attr('action', '{{ route('categories.destroy', '%') }}'.replace('%', id))
                 .submit();
         }

@@ -29,7 +29,7 @@
                                 {{ __('Logout') }}
                             </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
+                            <form id="logout-form" class="d-none" action="{{ route('logout') }}" method="POST">
                                 @csrf
                             </form>
                         </div>
@@ -51,6 +51,17 @@
                         <div class="nav-link-name">首頁</div>
                     </a>
                 </li>
+
+                @can('view', App\Category::class)
+                    <li class="nav-item @active(['items.index', 'items.create'])">
+                        <a class="nav-link" href="{{ route('items.index') }}">
+                            <div class="nav-link-icon">
+                                <i class="fas fa-list-ul fa-fw"></i>
+                            </div>
+                            <div class="nav-link-name">物品列表</div>
+                        </a>
+                    </li>
+                @endcan
 
                 @can('view', App\Category::class)
                     @foreach ($menuCategories as $menuCategory)

@@ -1,4 +1,4 @@
-require('./bootstrap');
+require('./bootstrap')
 
 // Dashboard sidebar
 const sidebarToggler = document.querySelector('.dashboard-sidebar-toggler')

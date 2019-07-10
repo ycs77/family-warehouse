@@ -31,6 +31,17 @@ trait WithStatus
     }
 
     /**
+     * Return error message
+     *
+     * @param  string $message
+     * @return array
+     */
+    protected function error($message)
+    {
+        return $this->message('danger', $message);
+    }
+
+    /**
      * Return create success message
      *
      * @param  string $message

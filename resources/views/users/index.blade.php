@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
+                    @forelse ($users as $user)
                         <tr data-id="{{ $user->id }}" data-name="{{ $user->name }}">
                             <td>{{ $user->id }}</td>
                             <td><a href="{{ route('users.show', $user) }}">{{ $user->name }}</a></td>
@@ -40,17 +40,21 @@
                                 <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-success">修改</a>
                                 <a href="{{ route('users.password', $user) }}" class="btn btn-sm btn-warning">修改密碼</a>
                                 @if (!$user->isCantDeprivation())
-                                    <button class="btn btn-sm btn-danger btn-user-destroy">刪除</button>
+                                    <button class="btn btn-sm btn-danger btn-destroy">刪除</button>
                                 @else
                                     <button class="btn btn-sm btn-danger" disabled>刪除</button>
                                 @endif
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">無</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
 
-            <form id="form-user-destroy" action="#" method="POST">
+            <form id="form-destroy" action="#" method="POST">
                 @csrf
                 @method('DELETE')
             </form>
@@ -62,12 +66,12 @@
 
 @push('script')
     <script>
-    $('.btn-user-destroy').click(function (e) {
+    $('.btn-destroy').click(function (e) {
         e.preventDefault();
         let id = $(this).closest('tr').data('id');
         let name = $(this).closest('tr').data('name');
         if (confirm('確定要刪除用戶 ' + name + ' ?')) {
-            $('#form-user-destroy')
+            $('#form-destroy')
                 .attr('action', '{{ route('users.destroy', '%') }}'.replace('%', id))
                 .submit();
         }

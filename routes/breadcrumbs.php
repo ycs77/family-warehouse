@@ -53,3 +53,33 @@ Breadcrumbs::for('categories.edit', function ($trail, $category) {
     $trail->parent('categories.index');
     $trail->push('編輯分類', route('categories.edit', $category));
 });
+
+// Item
+Breadcrumbs::for('items.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('物品列表', route('items.index'));
+});
+
+Breadcrumbs::for('items.show', function ($trail, $item) {
+    if ($item->category) {
+        $trail->parent('categories.show', $item->category);
+    } else {
+        $trail->parent('home');
+    }
+    $trail->push($item->name, route('item', $item));
+});
+
+Breadcrumbs::for('items.create', function ($trail) {
+    $trail->parent('items.index');
+    $trail->push('新增物品', route('items.create'));
+});
+
+Breadcrumbs::for('items.edit', function ($trail, $item) {
+    $trail->parent('items.show', $item);
+    $trail->push('編輯物品', route('items.edit', $item));
+});
+
+Breadcrumbs::for('items.borrow', function ($trail, $item) {
+    $trail->parent('items.show', $item);
+    $trail->push('借出物品', route('items.borrow', $item));
+});

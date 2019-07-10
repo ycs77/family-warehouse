@@ -14,9 +14,10 @@
         {!! form_until($form, 'description') !!}
 
         @include('categories._categories_field', [
+            'name' => 'parent_id',
             'label' => '上層分類',
             'current' => null,
-            'parent_id' => null,
+            'checked_id' => null,
         ])
 
         {!! form_end($form) !!}

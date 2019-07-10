@@ -48,4 +48,20 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'user_children', 'child_id', 'user_id')
             ->where('role', '<>', 'child');
     }
+
+    public function borrows()
+    {
+        return $this->hasMany(Item::class, 'borrow_user_id');
+    }
+
+    public function getSelfOrChildToBorrow(Item $item)
+    {
+        return $this->children
+            ->prepend($this)
+            ->filter(function ($user) use ($item) {
+                return $user->id === $item->borrow_user->id;
+            })
+            ->filter()
+            ->first();
+    }
 }

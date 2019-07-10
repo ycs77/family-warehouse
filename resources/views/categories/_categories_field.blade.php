@@ -7,8 +7,8 @@
         {{-- Root node --}}
         @if ($root ?? true)
             <div class="custom-control custom-radio">
-                <input type="radio" name="parent_id" id="category-parent-root" class="custom-control-input @error('parent_id') is-invalid @enderror" value="" @if (!isset($parent_id)) checked @endif>
-                <label for="category-parent-root" class="custom-control-label">(根節點)</label>
+                <input type="radio" name="{{ $name }}" id="category-root" class="custom-control-input @error($name) is-invalid @enderror" value="" @if (!isset($checked_id)) checked @endif>
+                <label for="category-root" class="custom-control-label">{{ $root_label ?? '(根節點)' }}</label>
             </div>
         @endif
 
@@ -20,8 +20,8 @@
                         <div class="indent"></div>
                     @endfor
                     <div class="custom-control custom-radio">
-                        <input type="radio" name="parent_id" id="category-parent-{{ $category->id }}" class="custom-control-input @error('parent_id') is-invalid @enderror" value="{{ $category->id }}" @if ($parent_id === $category->id) checked @endif>
-                        <label for="category-parent-{{ $category->id }}" class="custom-control-label">
+                        <input type="radio" name="{{ $name }}" id="category-{{ $category->id }}" class="custom-control-input @error($name) is-invalid @enderror" value="{{ $category->id }}" @if ($checked_id === $category->id) checked @endif>
+                        <label for="category-{{ $category->id }}" class="custom-control-label">
                             {{ $category->name }}
                         </label>
                     </div>

@@ -32,4 +32,9 @@ class Category extends Model
 
         return $category->is($this) || $category->isDescendantOf($this);
     }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }

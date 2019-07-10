@@ -162,7 +162,7 @@ return [
         'minute'                => '分',
         'mobile'                => '手機',
         'month'                 => '月',
-        'name'                  => '名字',
+        'name'                  => '名稱',
         'password'              => '密碼',
         'password_confirmation' => '確認密碼',
         'phone'                 => '電話',

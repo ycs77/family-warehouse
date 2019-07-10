@@ -20,4 +20,9 @@ class UserPolicy
     {
         return Permission::check('users-edit', $user);
     }
+
+    public function login(User $user)
+    {
+        return Permission::check('login', $user);
+    }
 }

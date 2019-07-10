@@ -27,6 +27,20 @@
                         @endcomponent
                     </td>
                 </tr>
+                <tr>
+                    <th class="py-4">借出物品</th>
+                    <td>
+                        <div class="list-group">
+                            @forelse ($user->borrows as $borrowItem)
+                                <a href="{{ route('item', $borrowItem) }}" class="list-group-item list-group-item-action">
+                                    {{ $borrowItem->name }}
+                                </a>
+                            @empty
+                                <div class="list-group-item text-center text-muted">沒有借出物品...</div>
+                            @endforelse
+                        </div>
+                    </td>
+                </tr>
                 @if ($user->role !== 'child')
                     <tr>
                         <th class="py-4">代管小孩</th>

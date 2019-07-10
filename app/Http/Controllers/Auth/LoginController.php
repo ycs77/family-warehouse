@@ -51,11 +51,9 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        $isChildUser = User::where('username', $request->input('username'))
-            ->where('role', 'child')
-            ->count() > 0;
+        $user = User::where('username', $request->input('username'))->first();
 
-        if ($isChildUser) {
+        if ($user ? $user->cant('login', User::class) : true) {
             return $this->sendFailedLoginResponse($request);
         }
 

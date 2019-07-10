@@ -102,13 +102,24 @@ return [
 
     'roles' => [
         'user' => [
+            'login',
+            'categories-edit',
             'categories-view',
+            'items-view',
+            'items-edit',
         ],
-        'child' => [],
+        'child' => [
+            // 'login',
+            // 'categories-view',
+            // 'items-view',
+        ],
         'admin' => [
+            'login',
             'users-edit',
             'categories-edit',
             'categories-view',
+            'items-view',
+            'items-edit',
         ],
     ],
 

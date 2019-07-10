@@ -35,10 +35,17 @@ class AppServiceProvider extends ServiceProvider
 
         // Custom Blade Directive
         Blade::directive('active', function ($routeName) {
-            return "<?php echo \Illuminate\Support\Str::is($routeName, request()->route()->getName()) ? 'active' : ''; ?>";
+            return "<?php echo Str::is($routeName, request()->route()->getName()) ? 'active' : ''; ?>";
         });
         Blade::directive('category_active', function ($category) {
-            return "<?php echo {$category}->isSelfOrChild(request()->category) ? 'active' : ''; ?>";
+            return "<?php
+                echo {$category}->isSelfOrChild(
+                    request()->item &&
+                    request()->item->category
+                        ? request()->item->category
+                        : request()->category
+                ) ? 'active' : '';
+            ?>";
         });
 
         // View share

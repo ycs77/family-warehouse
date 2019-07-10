@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // View share
-        View::composer('layouts.app', function ($view) {
+        View::composer(['layouts.app', 'home'], function ($view) {
             $view->with('menuCategories', Category::whereIsRoot()->get());
         });
     }

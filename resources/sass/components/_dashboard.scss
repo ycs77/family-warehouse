@@ -6,6 +6,7 @@
 .dashboard-sidebar {
   width: 200px;
   min-height: 100vh;
+  background-color: $white;
   border-right: 1px solid rgba($black, .125);
 
   &.show {
@@ -154,4 +155,8 @@
   .dashboard-sidebar-overlay {
     display: none !important;
   }
+}
+
+body.show-sidebar {
+  overflow: hidden;
 }

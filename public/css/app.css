@@ -11125,6 +11125,7 @@ a.text-dark:focus {
 .dashboard-sidebar {
   width: 200px;
   min-height: 100vh;
+  background-color: #fff;
   border-right: 1px solid rgba(0, 0, 0, 0.125);
 }
 
@@ -11300,6 +11301,10 @@ a.text-dark:focus {
   .dashboard-sidebar-overlay {
     display: none !important;
   }
+}
+
+body.show-sidebar {
+  overflow: hidden;
 }
 
 .list-nested {

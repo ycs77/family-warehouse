@@ -48,7 +48,7 @@
                 <div class="card-body">
                     <div class="row">
                         @forelse ($user->children as $child)
-                            <div class="col-6 col-sm-4 col-lg-3 mb-3">
+                            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between">
                                         <h5 class="mb-0">
@@ -86,7 +86,7 @@
                             <div class="card-body">
                                 <div class="row category-row">
                                     @foreach ($menuCategories as $menuCategory)
-                                        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+                                        <div class="col-6 col-sm-4 col-lg-3 col-xl-2 mb-3">
                                             <a href="{{ route('category', $menuCategory) }}" class="card">
                                                 <div class="card-body text-center">
                                                     <i class="{{ $menuCategory->icon ? $menuCategory->icon : 'fas fa-cube' }} fa-2x"></i>

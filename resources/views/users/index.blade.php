@@ -44,6 +44,11 @@
                                 @else
                                     <button type="button" class="btn btn-sm btn-danger" disabled>刪除</button>
                                 @endif
+
+                                <a href="{{ route('users.history.borrow', $user) }}" class="btn btn-sm btn-primary">借物紀錄</a>
+                                @if ($user->role !== 'child')
+                                    <a href="{{ route('users.history.proxy', $user) }}" class="btn btn-sm btn-primary">代借紀錄</a>
+                                @endif
                             </td>
                         </tr>
                     @empty

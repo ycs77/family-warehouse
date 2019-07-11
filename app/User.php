@@ -54,6 +54,29 @@ class User extends Authenticatable
         return $this->hasMany(Item::class, 'borrow_user_id');
     }
 
+    public function items()
+    {
+        return $this->belongsToMany(Item::class, 'histories')
+            ->using(History::class)
+            ->withTimestamps()
+            ->withPivot([
+                'action',
+                'parent_user_id',
+            ]);
+    }
+
+    public function proxy_items()
+    {
+        return $this->belongsToMany(Item::class, 'histories', 'parent_user_id')
+            ->using(History::class)
+            ->withTimestamps()
+            ->withPivot([
+                'action',
+                'item_id',
+                'user_id',
+            ]);
+    }
+
     public function getSelfOrChildToBorrow(Item $item)
     {
         return $this->children

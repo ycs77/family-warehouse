@@ -85,6 +85,27 @@
                     @endforeach
                 @endcan
 
+                @can('view', App\Item::class)
+                    <li class="nav-item @active('history.borrow')">
+                        <a class="nav-link" href="{{ route('history.borrow') }}">
+                            <div class="nav-link-icon">
+                                <i class="fas fa-fw fa-list-ul"></i>
+                            </div>
+                            <div class="nav-link-name">借物紀錄</div>
+                        </a>
+                    </li>
+                    @if (Auth::user()->role !== 'child')
+                        <li class="nav-item @active('history.proxy')">
+                            <a class="nav-link" href="{{ route('history.proxy') }}">
+                                <div class="nav-link-icon">
+                                    <i class="fas fa-fw fa-list-ul"></i>
+                                </div>
+                                <div class="nav-link-name">代借紀錄</div>
+                            </a>
+                        </li>
+                    @endif
+                @endcan
+
                 @can('edit', App\User::class)
                     <li class="nav-item @active('users.*')">
                         <a class="nav-link" href="{{ route('users.index') }}">

@@ -21,9 +21,8 @@
         <div class="row">
             <div class="col-md mb-3">
                 <div class="card">
+                    <h5 class="card-header bg-primary text-white">借物狀態</h5>
                     <div class="card-body">
-                        <h5 class="card-title">借物狀態</h5>
-
                         @if ($item->borrow_user)
                             <div class="mb-2">
                                 現在已被
@@ -49,17 +48,52 @@
                 </div>
             </div>
 
-            <div class="col-md-4 mb-3">
-                <div class="card d-none d-md-flex">
+            <div class="col-md mb-3">
+                <div class="card">
+                    <h5 class="card-header bg-primary text-white">QR code</h5>
                     <div class="card-body">
-                        <h5 class="card-title">QRCode</h5>
-
-                        <div class="qrcode-block">
+                        <div class="qrcode-block text-center">
                             {!! QrCode::size(300)->generate(Hashids::encode($item->id)) !!}
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="card">
+            <h5 class="card-header bg-primary text-white">借物紀錄</h5>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>用戶</th>
+                            <th>代借者</th>
+                            <th>操作</th>
+                            <th>操作時間</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($borrow_users as $user)
+                            <tr>
+                                <td><a href="{{ route('users.show', $user) }}">{{ $user->name }}</a></td>
+                                <td>
+                                    @if ($user->pivot->parent)
+                                        <a href="{{ route('users.show', $user->pivot->parent) }}">{{ $user->pivot->parent->name }}</a>
+                                    @endif
+                                </td>
+                                <td>@include('items._borrow_badge', ['action' => $user->pivot->action])</td>
+                                <td>{{ $user->pivot->created_at }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">本物品尚未借出過</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            {{ $borrow_users->links() }}
         </div>
     </div>
 @endsection

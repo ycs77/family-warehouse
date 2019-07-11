@@ -7,10 +7,15 @@ Route::middleware('auth')->group(function () {
     // Main
     Route::get('/', 'HomeController@index')->name('home');
 
+    Route::get('history/borrow', 'HomeController@borrow_history')->name('history.borrow');
+    Route::get('history/proxy', 'HomeController@proxy_borrow_history')->name('history.proxy');
+
     // User
     Route::get('users/{user}/password', 'UserController@password')->name('users.password');
     Route::put('users/{user}/password', 'UserController@updatePassword')->name('users.password.update');
     Route::resource('users', 'UserController');
+    Route::get('users/{user}/history/borrow', 'UserController@borrow_history')->name('users.history.borrow');
+    Route::get('users/{user}/history/proxy', 'UserController@proxy_borrow_history')->name('users.history.proxy');
 
     // Category
     Route::get('categories/create', 'CategoryController@create')->name('categories.create');

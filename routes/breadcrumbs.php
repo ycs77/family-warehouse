@@ -30,6 +30,26 @@ Breadcrumbs::for('users.password', function ($trail, $user) {
     $trail->push('修改密碼', route('users.password', $user));
 });
 
+Breadcrumbs::for('users.history.borrow', function ($trail, $user) {
+    $trail->parent('users.show', $user);
+    $trail->push('借物紀錄', route('users.history.borrow', $user));
+});
+
+Breadcrumbs::for('users.history.proxy', function ($trail, $user) {
+    $trail->parent('users.show', $user);
+    $trail->push('代借紀錄', route('users.history.proxy', $user));
+});
+
+Breadcrumbs::for('history.borrow', function ($trail) {
+    $trail->parent('home');
+    $trail->push('借物紀錄', route('history.borrow'));
+});
+
+Breadcrumbs::for('history.proxy', function ($trail) {
+    $trail->parent('home');
+    $trail->push('代借紀錄', route('history.proxy'));
+});
+
 // Category
 Breadcrumbs::for('categories.index', function ($trail) {
     $trail->parent('home');

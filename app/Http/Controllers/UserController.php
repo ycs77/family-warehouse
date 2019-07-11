@@ -220,4 +220,36 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->with('status', $this->deleteSuccess("修改用戶 {$user->name} 密碼成功"));
     }
+
+    /**
+     * Borrow things history.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function borrow_history(User $user)
+    {
+        $borrow_items = $user->load('items')
+            ->items()
+            ->latest('pivot_created_at')
+            ->paginate(20);
+
+        return view('users.borrow_history', compact('user', 'borrow_items'));
+    }
+
+    /**
+     * Proxy borrow children things history.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function proxy_borrow_history(User $user)
+    {
+        $borrow_proxy_items = $user->load('proxy_items')
+            ->proxy_items()
+            ->latest('pivot_created_at')
+            ->paginate(20);
+
+        return view('users.proxy_history', compact('user', 'borrow_proxy_items'));
+    }
 }

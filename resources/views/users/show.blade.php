@@ -50,6 +50,10 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <th>借物紀錄</th>
+                    <td><a href="{{ route('users.history.borrow', $user) }}">查看</a></td>
+                </tr>
                 @if ($user->role !== 'child')
                     <tr>
                         <th class="py-4">代管小孩</th>
@@ -65,6 +69,10 @@
                                 @endforelse
                             </div>
                         </td>
+                    </tr>
+                    <tr>
+                        <th>代借紀錄</th>
+                        <td><a href="{{ route('users.history.proxy', $user) }}">查看</a></td>
                     </tr>
                 @endif
             </table>

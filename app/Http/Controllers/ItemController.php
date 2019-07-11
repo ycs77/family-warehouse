@@ -100,7 +100,12 @@ class ItemController extends Controller
     {
         $this->authorize('view', Item::class);
 
-        return view('items.show', compact('item'));
+        $borrow_users = $item->load('users')
+            ->users()
+            ->latest('pivot_created_at')
+            ->paginate(20);
+
+        return view('items.show', compact('item', 'borrow_users'));
     }
 
     /**

@@ -24,4 +24,15 @@ class Item extends Model
     {
         return $this->belongsTo(User::class, 'borrow_user_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'histories')
+            ->using(History::class)
+            ->withTimestamps()
+            ->withPivot([
+                'action',
+                'parent_user_id',
+            ]);
+    }
 }

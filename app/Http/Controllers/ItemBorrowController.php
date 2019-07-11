@@ -27,12 +27,12 @@ class ItemBorrowController extends Controller
             $item = $request->item;
             $borrow_user = $request->user()->getSelfOrChildToBorrow($item);
 
-            if ($request->user()->cant('edit', Item::class)) {
-                if (!$item->borrow_user) {
-                    return redirect()->route('item', $item)
-                        ->with('status', $this->error("現在沒有借走 {$item->name}，所以不能歸還..."));
-                }
+            if (!$item->borrow_user) {
+                return redirect()->route('item', $item)
+                    ->with('status', $this->error("現在沒有借走 {$item->name}，所以不能歸還..."));
+            }
 
+            if ($request->user()->cant('edit', Item::class)) {
                 if (!$borrow_user) {
                     return redirect()->route('item', $item)
                         ->with('status', $this->error("您/您代管的小孩沒有借走 {$item->name}..."));
@@ -62,24 +62,24 @@ class ItemBorrowController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function borrow(Request $request, Item $item, ?User $user)
+    public function borrow(Request $request, Item $item, User $user)
     {
         if ($item->borrow_user) {
             return redirect()->route('item', $item)
                 ->with('status', $this->error("無法借出 {$item->name}，因為已經被 {$item->borrow_user->name} 借走了！"));
         }
 
-        $borrow_user = $user->id ? $user : $request->user();
+        $borrow_user = $user;
+        $user = $request->user();
 
         $item->update([
             'borrow_user_id' => $borrow_user->id,
         ]);
 
-        // if ($borrow_user) {
-        //     // History - $borrow_user
-        // } else {
-        //     //
-        // }
+        $item->users()->attach($borrow_user, [
+            'action' => 'borrow',
+            'parent_user_id' => $borrow_user->id === $user->id ? null : $user->id,
+        ]);
 
         return redirect()->route('item', $item)
             ->with('status', $this->success("借出物品 {$item->name} 成功"));
@@ -109,15 +109,25 @@ class ItemBorrowController extends Controller
         $user = $request->user();
         $borrow_user = $request->user()->getSelfOrChildToBorrow($item);
 
+        $item_old = $item->fresh('borrow_user');
         $item->update([
             'borrow_user_id' => null,
         ]);
 
-        // if ($borrow_user) {
-        //     // History - $borrow_user
-        // } elseif (!$borrow_user && $user) {
-        //     //
-        // }
+        if ($borrow_user) {
+            $item->users()->attach($borrow_user, [
+                'action' => 'return',
+                'parent_user_id' => $borrow_user->id === $user->id ? null : $user->id,
+            ]);
+        } else {
+            // 跟借物者非親非故，但我是管理者，所以可以強制歸還
+            if ($request->user()->can('edit', Item::class)) {
+                $item->users()->attach($item_old->borrow_user, [
+                    'action' => 'return',
+                    'parent_user_id' => $user->id,
+                ]);
+            }
+        }
 
         return redirect()->route('item', $item)
             ->with('status', $this->success("歸還物品 {$item->name} 成功"));

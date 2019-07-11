@@ -64,4 +64,13 @@ class User extends Authenticatable
             ->filter()
             ->first();
     }
+
+    public function isExistsTo($user = null)
+    {
+        if (!$user || $this->role !== 'child') {
+            return false;
+        }
+
+        return $user->children()->where('id', $this->id)->exists();
+    }
 }

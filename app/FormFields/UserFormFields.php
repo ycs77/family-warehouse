@@ -36,6 +36,7 @@ class UserFormFields extends FormFields
                     'admin',
                 ],
                 'is_checkbox' => false,
+                'back_rules' => 'required',
             ],
             'submit',
         ];

@@ -64,7 +64,9 @@ class UserController extends Controller
             'method' => 'POST',
         ]);
 
-        return view('users.create', compact('form'));
+        $allChildren = User::where('role', 'child')->get();
+
+        return view('users.create', compact('form', 'allChildren'));
     }
 
     /**
@@ -76,10 +78,18 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $this->validateFormData($request);
+
+        $request->validate([
+            'children' => 'array',
+            'children.*' => 'required|numeric',
+        ]);
+
         unset($data['password_confirmation']);
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         }
+
+        // children
 
         $user = User::create($data);
 
@@ -110,13 +120,11 @@ class UserController extends Controller
             'url' => route('users.update', $user),
             'method' => 'PUT',
             'model'  => $user,
-        ], $this->editFormFields->fields());
+        ], $this->editFormFields->fields($user->isCantDeprivation()));
 
-        if ($user->isCantDeprivation()) {
-            $form->remove('role');
-        }
+        $allChildren = User::where('id', '<>', $user->id)->where('role', 'child')->get();
 
-        return view('users.edit', compact('user', 'form'));
+        return view('users.edit', compact('user', 'form', 'allChildren'));
     }
 
     /**
@@ -128,11 +136,34 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $data = $this->validateFormData($request, $this->editFormFields->fields());
+        $data = $this->validateFormData($request, $this->editFormFields->fields($user->isCantDeprivation()));
 
         $user->update($data);
 
-        return redirect()->route('users.index')
+        if ($user->role === 'child') {
+            $user->children()->sync([]);
+        } else {
+            // Add children
+            $request->validate([
+                'children' => 'array',
+                'children.*' => 'required|numeric',
+            ]);
+
+            if ($request->input('children')) {
+                $children = User::whereIn('id', $request->input('children'))
+                    ->where('id', '<>', $user->id)
+                    ->where('role', 'child')
+                    ->get()
+                    ->map(function ($child) {
+                        return $child->id;
+                    });
+                $user->children()->sync($children);
+            }
+
+            $user->parents()->sync([]);
+        }
+
+        return redirect()->route('users.show', $user)
             ->with('status', $this->updateSuccess("修改用戶 {$user->name} 成功"));
     }
 

@@ -15,6 +15,7 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "simplesoftwareio/simple-qrcode": "^2.0",
+        "vinkla/hashids": "^6.0",
         "ycs77/laravel-form-builder-bs4": "^1.0",
         "ycs77/laravel-form-builder-fields": "^0.3.1",
         "ycs77/laravel-form-field-type": "^1.3"

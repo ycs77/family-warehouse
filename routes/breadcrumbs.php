@@ -83,3 +83,14 @@ Breadcrumbs::for('items.borrow', function ($trail, $item) {
     $trail->parent('items.show', $item);
     $trail->push('借出物品', route('items.borrow', $item));
 });
+
+Breadcrumbs::for('items.return', function ($trail, $item) {
+    $trail->parent('items.show', $item);
+    $trail->push('歸還物品', route('items.return', $item));
+});
+
+// Scanner
+Breadcrumbs::for('scanner', function ($trail) {
+    $trail->parent('home');
+    $trail->push('掃描 QR code', route('scanner.index'));
+});

@@ -25,17 +25,15 @@
                         <h5 class="card-title">借物狀態</h5>
 
                         @if ($item->borrow_user)
-                            @if ($item->borrow_user->id !== Auth::user()->id)
-                                <div class="mb-2">
-                                    現在已被
-                                    @can('edit', \App\User::class)
-                                        <a href="{{ route('users.show', $item->borrow_user) }}">{{ $item->borrow_user->name }}</a>
-                                    @else
-                                        {{ $item->borrow_user->name }}
-                                    @endcan
-                                    借走了
-                                </div>
-                            @endif
+                            <div class="mb-2">
+                                現在已被
+                                @can('edit', \App\User::class)
+                                    <a href="{{ route('users.show', $item->borrow_user) }}">{{ $item->borrow_user->name }}</a>
+                                @else
+                                    {{ $item->borrow_user->name }}
+                                @endcan
+                                借走了
+                            </div>
 
                             @if (Auth::user()->getSelfOrChildToBorrow($item))
                                 <form action="{{ route('items.return', $item) }}" method="POST">
@@ -45,14 +43,7 @@
                             @endif
                         @else
                             <div class="mb-2">尚未借出</div>
-                            @if (!Auth::user()->children->count())
-                                <form action="{{ route('items.borrow', $item) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success">借出</button>
-                                </form>
-                            @else
-                                <a href="{{ route('items.borrow', $item) }}" class="btn btn-success">借出</a>
-                            @endif
+                            <a href="{{ route('items.borrow.page', $item) }}" class="btn btn-success">借出</a>
                         @endif
                     </div>
                 </div>
@@ -64,7 +55,7 @@
                         <h5 class="card-title">QRCode</h5>
 
                         <div class="qrcode-block">
-                            {!! QrCode::size(300)->generate(route('item', $item)) !!}
+                            {!! QrCode::size(300)->generate(Hashids::encode($item->id)) !!}
                         </div>
                     </div>
                 </div>
@@ -75,8 +66,7 @@
 
 @push('script')
     <script>
-    $('.btn-destroy').click(function (e) {
-        e.preventDefault();
+    $('.btn-destroy').click(function () {
         if (confirm('確定要刪除物品 {{ $item->name }} ?')) {
             $('#form-destroy')
                 .attr('action', '{{ route('items.destroy', $item) }}')

@@ -87,8 +87,7 @@
 
 @push('script')
     <script>
-    $('.btn-destroy').click(function (e) {
-        e.preventDefault();
+    $('.btn-destroy').click(function () {
         let id = $(this).closest('tr').data('id');
         let name = $(this).closest('tr').data('name');
         if (confirm('確定要刪除物品 ' + name + ' ?')) {

@@ -7,24 +7,37 @@
 @section('content')
     <div class="container-fluid pb-3">
         <div class="row">
-            <div class="col-md mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <h1 class="h3">
-                            <i class="fas fa-user fa-fw text-primary"></i>{{ $user->name }}
-                        </h1>
+            <div class="col-12 col-md-12 col-lg mb-4">
+                <div class="card card-center h-100">
+                    <div class="card-body">
                         <div>
-                            <span class="text-muted">{{ $user->username }}</span>
-                            @component('users/_role')
-                                @slot('role', $user->role)
-                            @endcomponent
+                            <h1 class="h3">
+                                <i class="fas fa-user fa-fw text-primary"></i>{{ $user->name }}
+                            </h1>
+                            <div>
+                                <span class="text-muted">{{ $user->username }}</span>
+                                @component('users/_role')
+                                    @slot('role', $user->role)
+                                @endcomponent
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             @can('view', App\Item::class)
-                <div class="col-md mb-4">
+                <div class="col-md-6 col-lg mb-4">
+                    <a href="{{ route('scanner.index') }}" class="card card-center h-100">
+                        <div class="card-body">
+                            <div>
+                                <i class="fas fa-camera fa-3x"></i>
+                                <div class="card-title h5 mt-3 mb-0">掃描 QR code</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg mb-4">
                     <div class="card">
                         <h5 class="card-header bg-primary text-white">借出物品</h5>
                         <div class="list-group list-group-flush">

@@ -52,6 +52,17 @@
                     </a>
                 </li>
 
+                @can('view', App\Item::class)
+                    <li class="nav-item @active('scanner.*')">
+                        <a class="nav-link" href="{{ route('scanner.index') }}">
+                            <div class="nav-link-icon">
+                                <i class="fas fa-camera fa-fw"></i>
+                            </div>
+                            <div class="nav-link-name">掃描 QR code</div>
+                        </a>
+                    </li>
+                @endcan
+
                 @can('view', App\Category::class)
                     <li class="nav-item @active(['items.index', 'items.create'])">
                         <a class="nav-link" href="{{ route('items.index') }}">
@@ -61,9 +72,7 @@
                             <div class="nav-link-name">物品列表</div>
                         </a>
                     </li>
-                @endcan
 
-                @can('view', App\Category::class)
                     @foreach ($menuCategories as $menuCategory)
                     <li class="nav-item @category_active($menuCategory)">
                         <a class="nav-link" href="{{ route('category', $menuCategory) }}">
@@ -86,6 +95,7 @@
                         </a>
                     </li>
                 @endcan
+
                 @can('edit', App\Category::class)
                     <li class="nav-item @active('categories.*')">
                         <a class="nav-link" href="{{ route('categories.index') }}">

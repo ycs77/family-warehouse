@@ -21,9 +21,17 @@ Route::middleware('auth')->group(function () {
     Route::get('items/create', 'ItemController@create')->name('items.create');
     Route::get('items/{item}', 'ItemController@show')->name('item');
     Route::resource('items', 'ItemController')->except('show');
-    Route::get('items/{item}/borrow', 'ItemController@borrowPage')->name('items.borrow.page');
-    Route::post('items/{item}/borrow/{user?}', 'ItemController@borrow')->name('items.borrow');
-    Route::post('items/{item}/return', 'ItemController@return')->name('items.return');
+
+    // Item borrow
+    Route::get('items/{item}/borrow', 'ItemBorrowController@borrowPage')->name('items.borrow.page');
+    Route::post('items/{item}/borrow/{user?}', 'ItemBorrowController@borrow')->name('items.borrow');
+    Route::get('items/{item}/return', 'ItemBorrowController@returnPage')->name('items.return.page');
+    Route::post('items/{item}/return', 'ItemBorrowController@return')->name('items.return');
+
+    // Scanner
+    Route::get('scanner', 'ScannerController@index')->name('scanner.index');
+    Route::post('scanner/decode', 'ScannerController@decode')->name('scanner.decode');
+    Route::get('scanner/error', 'ScannerController@error')->name('scanner.error');
 });
 
 Auth::routes([

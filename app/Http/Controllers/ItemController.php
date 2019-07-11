@@ -6,7 +6,6 @@ use App\Category;
 use App\FormFields\ItemFormFields;
 use App\Http\Controllers\Traits\WithStatus;
 use App\Item;
-use App\User;
 use Illuminate\Http\Request;
 use Ycs77\LaravelFormFieldType\Traits\FormFieldsTrait;
 
@@ -30,7 +29,7 @@ class ItemController extends Controller
         $this->middleware(function ($request, $next) {
             $this->authorize('edit', Item::class);
             return $next($request);
-        })->except(['index', 'show', 'borrowPage', 'borrow', 'return']);
+        })->except(['index', 'show']);
     }
 
     /**
@@ -154,86 +153,5 @@ class ItemController extends Controller
 
         return redirect()->route('items.index')
             ->with('status', $this->deleteSuccess("刪除物品 $name 成功"));
-    }
-
-    /**
-     * Borrow things page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function borrowPage(Request $request, Item $item)
-    {
-        $this->authorize('view', Item::class);
-
-        if ($item->borrow_user) {
-            return redirect()->route('item', $item)
-                ->with('status', $this->error("無法借出 {$item->name}，因為已經被 {$item->borrow_user->name} 借走了！"));
-        }
-
-        return view('items.borrow', compact('item'));
-    }
-
-    /**
-     * Borrow things.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Item  $item
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function borrow(Request $request, Item $item, ?User $user)
-    {
-        $this->authorize('view', Item::class);
-
-        if ($item->borrow_user) {
-            return redirect()->route('item', $item)
-                ->with('status', $this->error("無法借出 {$item->name}，因為已經被 {$item->borrow_user->name} 借走了！"));
-        }
-
-        $borrow_user = $user->id ? $user : $request->user();
-
-        $item->update([
-            'borrow_user_id' => $borrow_user->id,
-        ]);
-        // History - $borrow_user
-
-        return redirect()->route('item', $item)
-            ->with('status', $this->success("借出物品 {$item->name} 成功"));
-    }
-
-    /**
-     * Return things.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function return(Request $request, Item $item)
-    {
-        $this->authorize('view', Item::class);
-
-        if ($request->user()->cant('edit', Item::class)) {
-            if (!$item->borrow_user) {
-                return redirect()->route('item', $item)
-                    ->with('status', $this->error("現在沒有借走 {$item->name}，所以不能歸還..."));
-            }
-
-            $borrow_user = $request->user()->getSelfOrChildToBorrow($item);
-
-            if (!$borrow_user) {
-                return redirect()->route('item', $item)
-                    ->with('status', $this->error("您/您代管的小孩沒有借走 {$item->name}..."));
-            }
-        }
-
-        $item->update([
-            'borrow_user_id' => null,
-        ]);
-        // History - $borrow_user
-
-        return redirect()->route('item', $item)
-            ->with('status', $this->success("歸還物品 {$item->name} 成功"));
     }
 }

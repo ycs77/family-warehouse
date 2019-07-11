@@ -40,7 +40,8 @@
                     <td>
                         <div class="list-group">
                             @forelse ($user->borrows as $borrowItem)
-                                <a href="{{ route('item', $borrowItem) }}" class="list-group-item list-group-item-action">
+                                <a href="{{ route('item', $borrowItem) }}" class="list-group-item list-group-item-action text-primary">
+                                    <i class="fas fa-box fa-fw"></i>
                                     {{ $borrowItem->name }}
                                 </a>
                             @empty
@@ -55,7 +56,8 @@
                         <td>
                             <div class="list-group">
                                 @forelse ($user->children as $child)
-                                    <a href="{{ route('users.show', $child) }}" class="list-group-item list-group-item-action">
+                                    <a href="{{ route('users.show', $child) }}" class="list-group-item list-group-item-action text-primary">
+                                        <i class="fas fa-user fa-fw"></i>
                                         {{ $child->name }}
                                     </a>
                                 @empty

@@ -56,7 +56,7 @@
                     <li class="nav-item @active(['items.index', 'items.create'])">
                         <a class="nav-link" href="{{ route('items.index') }}">
                             <div class="nav-link-icon">
-                                <i class="fas fa-list-ul fa-fw"></i>
+                                <i class="fas fa-boxes fa-fw"></i>
                             </div>
                             <div class="nav-link-name">物品列表</div>
                         </a>

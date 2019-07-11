@@ -9,31 +9,33 @@
         <div class="row">
             <div class="col-md mb-4">
                 <div class="card h-100">
-                    <div class="card-body">
-                        <h1 class="h3">{{ $user->name }}</h1>
-                        <div class="text-muted">{{ $user->username }}</div>
-                        @component('users/_role')
-                            @slot('role', $user->role)
-                        @endcomponent
+                    <div class="card-body text-center">
+                        <h1 class="h3">
+                            <i class="fas fa-user fa-fw text-primary"></i>{{ $user->name }}
+                        </h1>
+                        <div>
+                            <span class="text-muted">{{ $user->username }}</span>
+                            @component('users/_role')
+                                @slot('role', $user->role)
+                            @endcomponent
+                        </div>
                     </div>
                 </div>
             </div>
 
             @can('view', App\Item::class)
                 <div class="col-md mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">借出物品</h5>
-
-                            <div class="list-group">
-                                @forelse ($user->borrows as $borrowItem)
-                                    <a href="{{ route('item', $borrowItem) }}" class="list-group-item list-group-item-action">
-                                        {{ $borrowItem->name }}
-                                    </a>
-                                @empty
-                                    <div class="list-group-item text-center text-muted">沒有借出物品...</div>
-                                @endforelse
-                            </div>
+                    <div class="card">
+                        <h5 class="card-header bg-primary text-white">借出物品</h5>
+                        <div class="list-group list-group-flush">
+                            @forelse ($user->borrows as $borrowItem)
+                                <a href="{{ route('item', $borrowItem) }}" class="list-group-item list-group-item-action text-primary">
+                                    <i class="fas fa-box fa-fw"></i>
+                                    {{ $borrowItem->name }}
+                                </a>
+                            @empty
+                                <div class="list-group-item text-center text-muted">沒有借出物品...</div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -41,45 +43,35 @@
         </div>
 
         @if ($user->role !== 'child')
-            <div class="row">
-                <div class="col-md mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">代管小孩</h5>
-
-                            <div class="list-group">
-                                @forelse ($user->children as $child)
-                                    <a href="{{ route('users.show', $child) }}" class="list-group-item list-group-item-action">
-                                        {{ $child->name }}
-                                    </a>
-                                @empty
-                                    <div class="list-group-item text-center text-muted">沒有代管小孩...</div>
-                                @endforelse
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">小孩借出物品</h5>
-
-                            @forelse ($user->children()->has('borrows')->get() as $child)
-                                <div class="card mt-3">
-                                    <h5 class="card-header bg-white">{{ $child->name }}</h5>
+            <div class="card mb-3">
+                <h5 class="card-header bg-primary text-white">小孩借出物品</h5>
+                <div class="card-body">
+                    <div class="row">
+                        @forelse ($user->children as $child)
+                            <div class="col-6 col-sm-4 col-lg-3 mb-3">
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-user text-primary"></i>
+                                            {{ $child->name }}
+                                        </h5>
+                                        <a href="{{ route('users.show', $child) }}">用戶詳情</a>
+                                    </div>
                                     <div class="list-group list-group-flush">
-                                        @foreach ($child->borrows as $borrow)
-                                            <a href="{{ route('item', $borrow) }}" class="list-group-item list-group-item-action">
+                                        @forelse ($child->borrows as $borrow)
+                                            <a href="{{ route('item', $borrow) }}" class="list-group-item list-group-item-action text-primary">
+                                                <i class="fas fa-box fa-fw"></i>
                                                 {{ $borrow->name }}
                                             </a>
-                                        @endforeach
+                                        @empty
+                                            <div class="list-group-item text-center text-muted">沒有借出物品...</div>
+                                        @endforelse
                                     </div>
                                 </div>
-                            @empty
-                                <div class="py-3 text-center text-muted">現在小孩都沒有借出物品...</div>
-                            @endforelse
-                        </div>
+                            </div>
+                        @empty
+                            <div class="col py-3 text-center text-muted">現在小孩都沒有借出物品...</div>
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -90,9 +82,8 @@
                 <div class="row">
                     <div class="col mb-4">
                         <div class="card">
+                            <h5 class="card-header bg-primary text-white">倉庫分類</h5>
                             <div class="card-body">
-                                <h1 class="h3">倉庫分類</h1>
-
                                 <div class="row category-row">
                                     @foreach ($menuCategories as $menuCategory)
                                         <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">

@@ -21,13 +21,13 @@ Breadcrumbs::for('users.create', function ($trail) {
 });
 
 Breadcrumbs::for('users.edit', function ($trail, $user) {
-    $trail->parent('users.index');
+    $trail->parent('users.show', $user);
     $trail->push('編輯用戶', route('users.edit', $user));
 });
 
 Breadcrumbs::for('users.password', function ($trail, $user) {
-    $trail->parent('users.index');
-    $trail->push('修改用戶密碼', route('users.password', $user));
+    $trail->parent('users.show', $user);
+    $trail->push('修改密碼', route('users.password', $user));
 });
 
 // Category
@@ -50,7 +50,7 @@ Breadcrumbs::for('categories.create', function ($trail) {
 });
 
 Breadcrumbs::for('categories.edit', function ($trail, $category) {
-    $trail->parent('categories.index');
+    $trail->parent('categories.show', $category);
     $trail->push('編輯分類', route('categories.edit', $category));
 });
 

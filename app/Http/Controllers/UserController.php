@@ -168,7 +168,7 @@ class UserController extends Controller
             'method' => 'PUT',
         ], $this->passwordFormFields->fields());
 
-        return view('users.edit', compact('user', 'form'));
+        return view('users.password', compact('user', 'form'));
     }
 
     /**

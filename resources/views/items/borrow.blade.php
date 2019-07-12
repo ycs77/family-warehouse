@@ -14,7 +14,7 @@
                 @if (!$item->borrow_user)
                     <p class="lead text-center">請選擇操作身分</p>
 
-                    <div class="list-group list-group-users">
+                    <div class="list-group list-group-thin m-auto">
                         <button class="list-group-item list-group-item-action text-primary btn-borrow-user" data-user-id="{{ Auth::user()->id }}">
                             <i class="fas fa-user fa-fw"></i>
                             {{ Auth::user()->name }} (本人)
@@ -39,15 +39,6 @@
 @endsection
 
 @if (!$item->borrow_user)
-    @push('style')
-        <style>
-        .list-group-users {
-            max-width: 300px;
-            margin: auto;
-        }
-        </style>
-    @endpush
-
     @push('script')
         <script>
         $('.btn-borrow-user').click(function () {

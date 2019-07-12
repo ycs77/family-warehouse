@@ -11377,3 +11377,7 @@ h6,
   text-align: center;
 }
 
+.list-group-thin {
+  max-width: 300px;
+}
+

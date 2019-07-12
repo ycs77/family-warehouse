@@ -47,7 +47,7 @@
                                     {{ $borrowItem->name }}
                                 </a>
                             @empty
-                                <div class="list-group-item text-center text-muted">沒有借出物品...</div>
+                                <div class="list-group-item text-center text-muted">沒有借出物品</div>
                             @endforelse
                         </div>
                     </div>
@@ -77,13 +77,13 @@
                                                 {{ $borrow->name }}
                                             </a>
                                         @empty
-                                            <div class="list-group-item text-center text-muted">沒有借出物品...</div>
+                                            <div class="list-group-item text-center text-muted">沒有借出物品</div>
                                         @endforelse
                                     </div>
                                 </div>
                             </div>
                         @empty
-                            <div class="col py-3 text-center text-muted">現在小孩都沒有借出物品...</div>
+                            <div class="col py-3 text-center text-muted">現在小孩都沒有借出物品</div>
                         @endforelse
                     </div>
                 </div>

@@ -29,13 +29,13 @@ class ItemBorrowController extends Controller
 
             if (!$item->borrow_user) {
                 return redirect()->route('item', $item)
-                    ->with('status', $this->error("現在沒有借走 {$item->name}，所以不能歸還..."));
+                    ->with('status', $this->error("現在沒有借走 {$item->name}，所以不能歸還。"));
             }
 
             if ($request->user()->cant('edit', Item::class)) {
                 if (!$borrow_user) {
                     return redirect()->route('item', $item)
-                        ->with('status', $this->error("您/您代管的小孩沒有借走 {$item->name}..."));
+                        ->with('status', $this->error("您/您代管的小孩沒有借走 {$item->name}"));
                 }
             }
 

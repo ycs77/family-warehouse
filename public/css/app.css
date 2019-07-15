@@ -11117,14 +11117,18 @@ a.text-dark:focus {
 }
 
 .dashboard-container {
+  position: relative;
   display: -webkit-box;
   display: flex;
   background-color: #fff;
 }
 
 .dashboard-sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 3.5rem;
   width: 200px;
-  min-height: 100vh;
+  height: calc(100vh - 3.5rem);
   background-color: #fff;
   border-right: 1px solid rgba(0, 0, 0, 0.125);
 }
@@ -11218,9 +11222,9 @@ a.text-dark:focus {
 }
 
 .dashboard-sidebar-content {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 3.5rem;
+  height: 100%;
+  flex-wrap: nowrap;
+  overflow-y: auto;
 }
 
 .dashboard-sidebar-overlay {

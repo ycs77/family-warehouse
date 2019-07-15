@@ -1,11 +1,14 @@
 .dashboard-container {
+  position: relative;
   display: flex;
   background-color: $white;
 }
 
 .dashboard-sidebar {
+  position: sticky;
+  top: $navbar-height;
   width: 200px;
-  min-height: 100vh;
+  height: calc(100vh - #{$navbar-height});
   background-color: $white;
   border-right: 1px solid rgba($black, .125);
 
@@ -84,8 +87,9 @@
 }
 
 .dashboard-sidebar-content {
-  position: sticky;
-  top: $navbar-height;
+  height: 100%;
+  flex-wrap: nowrap;
+  overflow-y: auto;
 }
 
 .dashboard-sidebar-overlay {

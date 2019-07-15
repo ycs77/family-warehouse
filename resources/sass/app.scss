@@ -13,6 +13,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-weight: bold;
 }
 
+.btn ~ .btn {
+  margin-left: 0.25rem;
+}
+
 .alert-full {
   margin: 0;
   border-width: 0 0 1px;

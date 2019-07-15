@@ -11339,6 +11339,10 @@ h6,
   font-weight: bold;
 }
 
+.btn ~ .btn {
+  margin-left: 0.25rem;
+}
+
 .alert-full {
   margin: 0;
   border-width: 0 0 1px;

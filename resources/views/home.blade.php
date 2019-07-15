@@ -15,7 +15,7 @@
                                 <i class="fas fa-user fa-fw text-primary"></i>{{ $user->name }}
                             </h1>
                             <div>
-                                <span class="text-muted">{{ $user->username }}</span>
+                                <span class="text-muted mr-2">{{ $user->username }}</span>
                                 @component('users/_role')
                                     @slot('role', $user->role)
                                 @endcomponent

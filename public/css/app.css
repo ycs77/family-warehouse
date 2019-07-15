@@ -11385,3 +11385,8 @@ h6,
   max-width: 300px;
 }
 
+.qrcode-block svg,
+.qrcode-block img {
+  max-width: 100%;
+}
+

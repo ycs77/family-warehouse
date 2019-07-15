@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <div class="col-md mb-3">
+            <div class="col-md d-none d-md-block mb-3">
                 <div class="card">
                     <h5 class="card-header bg-primary text-white">QR code</h5>
                     <div class="card-body">

@@ -51,7 +51,9 @@ class ItemController extends Controller
             $itemsQuery->whereNull('borrow_user_id');
         }
 
-        $items = $itemsQuery->paginate(20);
+        $items = $itemsQuery
+            ->with(['category', 'borrow_user'])
+            ->paginate(20);
 
         return view('items.index', compact('items', 'borrow'));
     }
@@ -100,12 +102,12 @@ class ItemController extends Controller
     {
         $this->authorize('view', Item::class);
 
-        $borrow_users = $item->load('users')
-            ->users()
-            ->latest('pivot_created_at')
+        $histories = $item->histories()
+            ->with(['user', 'parent'])
+            ->latest()
             ->paginate(20);
 
-        return view('items.show', compact('item', 'borrow_users'));
+        return view('items.show', compact('item', 'histories'));
     }
 
     /**

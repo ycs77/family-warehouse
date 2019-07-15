@@ -89,6 +89,8 @@ class CategoryController extends Controller
     {
         $this->authorize('view', Category::class);
 
+        $category->load('items.borrow_user');
+
         return view('categories.show', compact('category'));
     }
 

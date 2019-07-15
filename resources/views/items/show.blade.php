@@ -73,16 +73,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($borrow_users as $user)
+                        @forelse ($histories as $history)
                             <tr>
-                                <td><a href="{{ route('users.show', $user) }}">{{ $user->name }}</a></td>
+                                <td><a href="{{ route('users.show', $history->user) }}">{{ $history->user->name }}</a></td>
                                 <td>
-                                    @if ($user->pivot->parent)
-                                        <a href="{{ route('users.show', $user->pivot->parent) }}">{{ $user->pivot->parent->name }}</a>
+                                    @if ($history->parent)
+                                        <a href="{{ route('users.show', $history->parent) }}">{{ $history->parent->name }}</a>
+                                    @else
+                                        <span class="text-muted">無</span>
                                     @endif
                                 </td>
-                                <td>@include('items._borrow_badge', ['action' => $user->pivot->action])</td>
-                                <td>{{ $user->pivot->created_at }}</td>
+                                <td>@include('items._borrow_badge', ['action' => $history->action])</td>
+                                <td>{{ $history->created_at }}</td>
                             </tr>
                         @empty
                             <tr>
@@ -93,7 +95,7 @@
                 </table>
             </div>
 
-            {{ $borrow_users->links() }}
+            {{ $histories->links() }}
         </div>
     </div>
 @endsection

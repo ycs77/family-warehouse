@@ -76,8 +76,9 @@ class ItemBorrowController extends Controller
             'borrow_user_id' => $borrow_user->id,
         ]);
 
-        $item->users()->attach($borrow_user, [
+        $item->histories()->create([
             'action' => 'borrow',
+            'user_id' => $borrow_user->id,
             'parent_user_id' => $borrow_user->id === $user->id ? null : $user->id,
         ]);
 
@@ -115,15 +116,17 @@ class ItemBorrowController extends Controller
         ]);
 
         if ($borrow_user) {
-            $item->users()->attach($borrow_user, [
+            $item->histories()->create([
                 'action' => 'return',
+                'user_id' => $borrow_user->id,
                 'parent_user_id' => $borrow_user->id === $user->id ? null : $user->id,
             ]);
         } else {
             // 跟借物者非親非故，但我是管理者，所以可以強制歸還
             if ($request->user()->can('edit', Item::class)) {
-                $item->users()->attach($item_old->borrow_user, [
+                $item->histories()->create([
                     'action' => 'return',
+                    'user_id' => $item_old->borrow_user->id,
                     'parent_user_id' => $user->id,
                 ]);
             }

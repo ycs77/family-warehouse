@@ -31,13 +31,14 @@ class HomeController extends Controller
     public function borrow_history(Request $request)
     {
         $user = $request->user();
-        $borrow_items = $user->load('items')
-            ->items()
-            ->latest('pivot_created_at')
+        $histories = $user
+            ->histories()
+            ->with(['item', 'parent'])
+            ->latest()
             ->paginate(20);
         $is_my = true;
 
-        return view('users.borrow_history', compact('user', 'borrow_items', 'is_my'));
+        return view('users.borrow_history', compact('user', 'histories', 'is_my'));
     }
 
     /**
@@ -49,12 +50,13 @@ class HomeController extends Controller
     public function proxy_borrow_history(Request $request)
     {
         $user = $request->user();
-        $borrow_proxy_items = $user->load('proxy_items')
-            ->proxy_items()
-            ->latest('pivot_created_at')
+        $proxy_histories = $user
+            ->proxy_histories()
+            ->with(['item', 'user'])
+            ->latest()
             ->paginate(20);
         $is_my = true;
 
-        return view('users.proxy_history', compact('user', 'borrow_proxy_items', 'is_my'));
+        return view('users.proxy_history', compact('user', 'proxy_histories', 'is_my'));
     }
 }

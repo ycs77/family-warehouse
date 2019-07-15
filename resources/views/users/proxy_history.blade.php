@@ -20,14 +20,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($borrow_proxy_items as $item)
+                    @forelse ($proxy_histories as $history)
                         <tr>
-                            <td><a href="{{ route('item', $item) }}">{{ $item->name }}</a></td>
+                            <td><a href="{{ route('item', $history->item) }}">{{ $history->item->name }}</a></td>
                             <td>
-                                <a href="{{ route('users.show', $item->pivot->user) }}">{{ $item->pivot->user->name }}</a>
+                                <a href="{{ route('users.show', $history->user) }}">{{ $history->user->name }}</a>
                             </td>
-                            <td>@include('items._borrow_badge', ['action' => $item->pivot->action])</td>
-                            <td>{{ $item->pivot->created_at }}</td>
+                            <td>@include('items._borrow_badge', ['action' => $history->action])</td>
+                            <td>{{ $history->created_at }}</td>
                         </tr>
                     @empty
                         <tr>
@@ -37,7 +37,7 @@
                 </tbody>
             </table>
 
-            {{ $borrow_proxy_items->links() }}
+            {{ $proxy_histories->links() }}
         </div>
     </div>
 @endsection

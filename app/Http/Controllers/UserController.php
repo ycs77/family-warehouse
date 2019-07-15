@@ -229,12 +229,13 @@ class UserController extends Controller
      */
     public function borrow_history(User $user)
     {
-        $borrow_items = $user->load('items')
-            ->items()
-            ->latest('pivot_created_at')
+        $histories = $user
+            ->histories()
+            ->with(['item', 'parent'])
+            ->latest()
             ->paginate(20);
 
-        return view('users.borrow_history', compact('user', 'borrow_items'));
+        return view('users.borrow_history', compact('user', 'histories'));
     }
 
     /**
@@ -245,11 +246,12 @@ class UserController extends Controller
      */
     public function proxy_borrow_history(User $user)
     {
-        $borrow_proxy_items = $user->load('proxy_items')
-            ->proxy_items()
-            ->latest('pivot_created_at')
+        $proxy_histories = $user
+            ->proxy_histories()
+            ->with(['item', 'user'])
+            ->latest()
             ->paginate(20);
 
-        return view('users.proxy_history', compact('user', 'borrow_proxy_items'));
+        return view('users.proxy_history', compact('user', 'proxy_histories'));
     }
 }

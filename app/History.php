@@ -3,10 +3,19 @@
 namespace App;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Model;
 
-class History extends Pivot
+class History extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'item_id', 'user_id', 'parent_user_id', 'action',
+    ];
+
     public function item()
     {
         return $this->belongsTo(Item::class);

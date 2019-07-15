@@ -46,11 +46,7 @@ class ScannerController extends Controller
             return redirect()->route('scanner.error');
         }
 
-        if (!$item->borrow_user) {
-            return redirect()->route('items.borrow.page', $item);
-        } else {
-            return redirect()->route('items.return.page', $item);
-        }
+        return redirect()->route('item', $item);
     }
 
     /**

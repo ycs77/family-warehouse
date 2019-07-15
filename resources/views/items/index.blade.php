@@ -14,9 +14,9 @@
 
             <div class="form-inline d-inline-flex ml-3">
                 篩選：
-                <div class="input-group-sm">
+                <div class="input-group input-group-sm">
                     <select class="form-control" onchange="location.href = this.value">
-                        <option value="{{ current_route_query(['borrow' => '']) }}">請選擇顯示借物</option>
+                        <option value="{{ current_route_query(['borrow' => '']) }}">已借物 & 未借物</option>
                         <option value="{{ current_route_query(['borrow' => 'true']) }}" {{ $borrow === 'true' ? 'selected' : '' }}>已借物</option>
                         <option value="{{ current_route_query(['borrow' => 'false']) }}" {{ $borrow === 'false' ? 'selected' : '' }}>未借物</option>
                     </select>
@@ -80,7 +80,7 @@
                 @method('DELETE')
             </form>
 
-            {{ $items->appends(compact('borrow'))->links() }}
+            {{ $items->appends(compact('borrow', 's'))->links() }}
         </div>
     </div>
 @endsection

@@ -21,7 +21,16 @@
                 @endcan
             </ul>
 
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto align-items-md-center">
+                <li class="nav-item mr-md-2">
+                    <form id="search" action="{{ items_search_route() }}" method="GET" class="form-inline input-group input-group-sm my-2 my-md-0" >
+                        <input class="form-control" type="search" name="q" placeholder="搜尋物品..." value="{{ request()->query('q') }}" aria-label="Search" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="submit">搜尋</button>
+                        </div>
+                    </form>
+                </li>
+
                 {{-- Authentication Links --}}
                 @guest
                     <li class="nav-item">

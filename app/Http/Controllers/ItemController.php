@@ -44,11 +44,16 @@ class ItemController extends Controller
 
         $itemsQuery = Item::query();
         $borrow = $request->query('borrow');
+        $search = $request->query('q');
 
         if ($borrow === 'true') {
             $itemsQuery->whereNotNull('borrow_user_id');
         } else if ($borrow === 'false') {
             $itemsQuery->whereNull('borrow_user_id');
+        }
+
+        if ($search) {
+            $itemsQuery->search($search, null, true, true);
         }
 
         $items = $itemsQuery

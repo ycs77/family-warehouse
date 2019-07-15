@@ -59,7 +59,7 @@
             <div class="card mb-3">
                 <h5 class="card-header bg-primary text-white">小孩借出物品</h5>
                 <div class="card-body">
-                    <div class="row">
+                    <div class="row remove-row-bottom-space">
                         @forelse ($user->children as $child)
                             <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
                                 <div class="card">
@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                         @empty
-                            <div class="col py-3 text-center text-muted">現在小孩都沒有借出物品</div>
+                            <div class="col mb-3 text-center text-muted">尚未幫小孩代借</div>
                         @endforelse
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                         <div class="card">
                             <h5 class="card-header bg-primary text-white">倉庫分類</h5>
                             <div class="card-body">
-                                <div class="row category-row">
+                                <div class="row remove-row-bottom-space">
                                     @foreach ($menuCategories as $menuCategory)
                                         <div class="col-6 col-sm-4 col-lg-3 col-xl-2 mb-3">
                                             <a href="{{ route('category', $menuCategory) }}" class="card">

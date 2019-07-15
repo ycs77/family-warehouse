@@ -36,7 +36,7 @@
                 <h4>分類物品</h4>
                 <hr class="my-2">
 
-                <div class="row category-row">
+                <div class="row">
                     @foreach ($category->items as $item)
                         <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
                             <div class="card h-100">

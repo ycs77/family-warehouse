@@ -24,8 +24,14 @@
         if (cameras.length > 0) {
             $('.scanner-loading').removeClass('show');
             $('#scanner').addClass('show');
-            let camera = cameras[0];
-            let mirror = camera.name ? camera.name.indexOf('back') === -1 : true;
+            let frontCamera = cameras.find(function (camera) {
+                return camera.name.indexOf('front') !== -1;
+            });
+            let backCamera = cameras.find(function (camera) {
+                return camera.name.indexOf('back') !== -1;
+            });
+            let camera = backCamera || frontCamera || cameras[0];
+            let mirror = camera.name.indexOf('back') === -1;
             let scanner = new Instascan.Scanner({ video: document.getElementById('scanner'), scanPeriod: 5, mirror: mirror });
             scanner.addListener('scan', function (content) {
                 $('#form-decode input[type=hidden][name=code]').val(content);

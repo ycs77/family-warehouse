@@ -143,7 +143,7 @@ class ItemController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('items.index')
+        return redirect()->route('item', $item)
             ->with('status', $this->updateSuccess("修改物品 {$item->name} 成功"));
     }
 

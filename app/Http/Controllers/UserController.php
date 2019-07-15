@@ -217,7 +217,7 @@ class UserController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        return redirect()->route('users.index')
+        return redirect()->route('users.show', $user)
             ->with('status', $this->deleteSuccess("修改用戶 {$user->name} 密碼成功"));
     }
 

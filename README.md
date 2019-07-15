@@ -31,3 +31,11 @@ php artisan migrate
 ```
 php artisan db:seed --class=InitialData
 ```
+
+## 開啟快取
+
+```
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```

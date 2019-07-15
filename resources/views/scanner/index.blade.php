@@ -5,9 +5,10 @@
 @section('breadcrumbs', Breadcrumbs::render('scanner'))
 
 @section('content')
-    <div id="scanner-preview" class="text-white">
+    <div class="scanner-preview" class="text-white">
         <div class="scanner-loading show"><div class="spinner-border"></div></div>
         <div class="scanner-error"></div>
+        <video id="scanner"></video>
     </div>
 
     <form id="form-decode" action="{{ route('scanner.decode') }}" method="post">
@@ -21,18 +22,22 @@
     <script>
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
-            let scanner = new Instascan.Scanner({ video: document.getElementById('scanner-preview') });
+            $('#scanner').addClass('show');
+            let camera = cameras[0];
+            let mirror = camera.name.indexOf('back') === -1;
+            let scanner = new Instascan.Scanner({ video: document.getElementById('scanner'), scanPeriod: 5, mirror: mirror });
             scanner.addListener('scan', function (content) {
                 $('#form-decode input[type=hidden][name=code]').val(content);
                 $('#form-decode').submit();
             });
-            scanner.start(cameras[0]);
+            scanner.start(camera);
+            $('.scanner-loading').removeClass('show');
         } else {
             $('.scanner-error').addClass('show').text('偵測不到攝影機');
             $('.scanner-loading').removeClass('show');
         }
     }).catch(function (e) {
-        $('.scanner-error').addClass('show').text('錯誤');
+        $('.scanner-error').addClass('show').text('錯誤！');
         $('.scanner-loading').removeClass('show');
     });
     </script>
@@ -47,22 +52,29 @@
     .dashboard-content {
         flex: 1;
     }
-    #scanner-preview {
+    .scanner-preview {
         height: 100%;
+        color: #ffffff;
+        background-color: #000000;
     }
-    div#scanner-preview {
-        background-color: #000;
-    }
-    div#scanner-preview .scanner-loading,
-    div#scanner-preview .scanner-error {
+    .scanner-preview .scanner-loading,
+    .scanner-preview .scanner-error {
         height: 100%;
         display: none;
         justify-content: center;
         align-items: center;
     }
-    div#scanner-preview .scanner-loading.show,
-    div#scanner-preview .scanner-error.show {
+    .scanner-preview .scanner-loading.show,
+    .scanner-preview .scanner-error.show {
         display: flex;
+    }
+    .scanner-preview #scanner {
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+    .scanner-preview #scanner.show {
+        display: block;
     }
     </style>
 @endpush

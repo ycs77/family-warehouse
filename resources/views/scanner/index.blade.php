@@ -22,16 +22,16 @@
     <script>
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
+            $('.scanner-loading').removeClass('show');
             $('#scanner').addClass('show');
             let camera = cameras[0];
-            let mirror = camera.name.indexOf('back') === -1;
+            let mirror = camera.name ? camera.name.indexOf('back') === -1 : true;
             let scanner = new Instascan.Scanner({ video: document.getElementById('scanner'), scanPeriod: 5, mirror: mirror });
             scanner.addListener('scan', function (content) {
                 $('#form-decode input[type=hidden][name=code]').val(content);
                 $('#form-decode').submit();
             });
             scanner.start(camera);
-            $('.scanner-loading').removeClass('show');
         } else {
             $('.scanner-error').addClass('show').text('偵測不到攝影機');
             $('.scanner-loading').removeClass('show');

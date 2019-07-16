@@ -6,6 +6,8 @@ use App\Http\Controllers\Traits\WithStatus;
 use App\Item;
 use App\User;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Vinkla\Hashids\Facades\Hashids;
 
 class ItemBorrowController extends Controller
 {
@@ -41,6 +43,19 @@ class ItemBorrowController extends Controller
 
             return $next($request);
         })->only(['returnPage', 'return']);
+    }
+
+    /**
+     * Response item QR code.
+     *
+     * @param  \App\Item  $item
+     * @return \Illuminate\Http\Response
+     */
+    public function qrcode(Item $item)
+    {
+        $img = QrCode::size(300)->generate(Hashids::encode($item->id));
+        return response($img)
+            ->header('Content-Type', 'image/svg+xml');
     }
 
     /**

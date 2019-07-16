@@ -48,12 +48,12 @@
                 </div>
             </div>
 
-            <div class="col-md d-none d-md-block mb-3">
+            <div class="col-md mb-3">
                 <div class="card">
                     <h5 class="card-header bg-primary text-white">QR code</h5>
                     <div class="card-body">
                         <div class="qrcode-block text-center">
-                            {!! QrCode::size(300)->generate(Hashids::encode($item->id)) !!}
+                            <img src="{{ route('items.qrcode', $item) }}" alt="{{ $item->name }} QR code">
                         </div>
                     </div>
                 </div>

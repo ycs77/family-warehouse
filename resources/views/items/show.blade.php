@@ -20,9 +20,9 @@
 
         <div class="row">
             <div class="col-md mb-3">
-                <div class="card">
+                <div class="card h-100">
                     <h5 class="card-header bg-primary text-white">借物狀態</h5>
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         @if ($item->borrow_user)
                             <div class="mb-2">
                                 現在已被
@@ -49,11 +49,33 @@
             </div>
 
             <div class="col-md mb-3">
-                <div class="card">
+                <div class="card h-100">
                     <h5 class="card-header bg-primary text-white">QR code</h5>
                     <div class="card-body">
-                        <div class="qrcode-block text-center">
-                            <img src="{{ route('items.qrcode', $item) }}" alt="{{ $item->name }} QR code">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#qrcodeModal">
+                                顯示 QR code
+                            </button>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="qrcodeModal" tabindex="-1" role="dialog" aria-labelledby="qrcodeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="qrcodeModalLabel">
+                                            <i class="fas fa-qrcode fa-fw"></i>
+                                            {{ $item->name }} QR code
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body qrcode-block text-center">
+                                        <img src="{{ route('items.qrcode', $item) }}" alt="{{ $item->name }} QR code">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

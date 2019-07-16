@@ -60,7 +60,7 @@ class ItemController extends Controller
             ->with(['category', 'borrow_user'])
             ->paginate(20);
 
-        return view('items.index', compact('items', 'borrow'));
+        return view('items.index', compact('items', 'borrow', 'search'));
     }
 
     /**

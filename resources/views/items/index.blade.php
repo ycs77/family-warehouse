@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@inject('itemPresenter', '\App\Presenters\ItemPresenter')
+
 @section('title', '物品列表')
 
 @section('breadcrumbs', Breadcrumbs::render('items.index'))
@@ -23,6 +25,14 @@
                 </div>
             </div>
         </div>
+
+        @if ($filterResult = $itemPresenter->statusText($borrow, $search))
+            <div class="my-3 text-muted">
+                <i class="fas fa-hourglass-end"></i>
+                {{ $filterResult }}
+                <a href="{{ route('items.index') }}">清除篩選</a>
+            </div>
+        @endif
 
         <div class="table-responsive">
             <table class="table">

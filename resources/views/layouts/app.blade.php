@@ -83,7 +83,7 @@
                 @endcan
 
                 @can('view', App\Category::class)
-                    <li class="nav-item @active(['items.index', 'items.create'])">
+                    <li class="nav-item @active('items.(index|create)')">
                         <a class="nav-link" href="{{ route('items.index') }}">
                             <div class="nav-link-icon">
                                 <i class="fas fa-boxes fa-fw"></i>
@@ -94,7 +94,7 @@
 
                     @foreach ($menuCategories as $menuCategory)
                     <li class="nav-item @category_active($menuCategory)">
-                        <a class="nav-link" href="{{ route('category', $menuCategory) }}">
+                        <a class="nav-link" href="{{ route('categories.show', $menuCategory) }}">
                             <div class="nav-link-icon">
                                 <i class="{{ $menuCategory->icon ? $menuCategory->icon : 'fas fa-cube' }} fa-fw"></i>
                             </div>
@@ -137,7 +137,7 @@
                 @endcan
 
                 @can('edit', App\Category::class)
-                    <li class="nav-item @active('categories.*')">
+                    <li class="nav-item @active('categories.(index|create)')">
                         <a class="nav-link" href="{{ route('categories.index') }}">
                             <div class="nav-link-icon">
                                 <i class="fas fa-fw fa-cubes"></i>

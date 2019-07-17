@@ -59,9 +59,9 @@ Breadcrumbs::for('categories.index', function ($trail) {
 Breadcrumbs::for('categories.show', function ($trail, $category) {
     $trail->parent('home');
     foreach ($category->ancestors as $parent) {
-        $trail->push($parent->name, route('category', $parent));
+        $trail->push($parent->name, route('categories.show', $parent));
     }
-    $trail->push($category->name, route('category', $category));
+    $trail->push($category->name, route('categories.show', $category));
 });
 
 Breadcrumbs::for('categories.create', function ($trail) {
@@ -86,7 +86,7 @@ Breadcrumbs::for('items.show', function ($trail, $item) {
     } else {
         $trail->parent('home');
     }
-    $trail->push($item->name, route('item', $item));
+    $trail->push($item->name, route('items.show', $item));
 });
 
 Breadcrumbs::for('items.create', function ($trail) {

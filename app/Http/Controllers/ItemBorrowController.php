@@ -30,13 +30,13 @@ class ItemBorrowController extends Controller
             $borrow_user = $request->user()->getSelfOrChildToBorrow($item);
 
             if (!$item->borrow_user) {
-                return redirect()->route('item', $item)
+                return redirect()->route('items.show', $item)
                     ->with('status', $this->error("現在沒有借走 {$item->name}，所以不能歸還。"));
             }
 
             if ($request->user()->cant('edit', Item::class)) {
                 if (!$borrow_user) {
-                    return redirect()->route('item', $item)
+                    return redirect()->route('items.show', $item)
                         ->with('status', $this->error("您/您代管的小孩沒有借走 {$item->name}"));
                 }
             }
@@ -80,7 +80,7 @@ class ItemBorrowController extends Controller
     public function borrow(Request $request, Item $item, User $user)
     {
         if ($item->borrow_user) {
-            return redirect()->route('item', $item)
+            return redirect()->route('items.show', $item)
                 ->with('status', $this->error("無法借出 {$item->name}，因為已經被 {$item->borrow_user->name} 借走了！"));
         }
 
@@ -97,7 +97,7 @@ class ItemBorrowController extends Controller
             'parent_user_id' => $borrow_user->id === $user->id ? null : $user->id,
         ]);
 
-        return redirect()->route('item', $item)
+        return redirect()->route('items.show', $item)
             ->with('status', $this->success("借出物品 {$item->name} 成功"));
     }
 
@@ -147,7 +147,7 @@ class ItemBorrowController extends Controller
             }
         }
 
-        return redirect()->route('item', $item)
+        return redirect()->route('items.show', $item)
             ->with('status', $this->success("歸還物品 {$item->name} 成功"));
     }
 }

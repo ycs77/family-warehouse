@@ -53,11 +53,11 @@
                     @forelse ($items as $item)
                         <tr data-id="{{ $item->id }}" data-name="{{ $item->name }}">
                             <td>{{ $item->id }}</td>
-                            <td><a href="{{ route('item', $item) }}">{{ $item->name }}</a></td>
+                            <td><a href="{{ route('items.show', $item) }}">{{ $item->name }}</a></td>
                             <td>{{ $item->description }}</td>
                             <td>
                                 @if ($item->category)
-                                    <a href="{{ route('category', $item->category) }}">{{ $item->category->name }}</a>
+                                    <a href="{{ route('categories.show', $item->category) }}">{{ $item->category->name }}</a>
                                 @else
                                     <span class="text-muted">無</span>
                                 @endif

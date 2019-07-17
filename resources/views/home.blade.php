@@ -42,7 +42,7 @@
                         <h5 class="card-header bg-primary text-white">借出物品</h5>
                         <div class="list-group list-group-flush">
                             @forelse ($user->borrows as $borrowItem)
-                                <a href="{{ route('item', $borrowItem) }}" class="list-group-item list-group-item-action text-primary">
+                                <a href="{{ route('items.show', $borrowItem) }}" class="list-group-item list-group-item-action text-primary">
                                     <i class="fas fa-box fa-fw"></i>
                                     {{ $borrowItem->name }}
                                 </a>
@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="list-group list-group-flush">
                                         @forelse ($child->borrows as $borrow)
-                                            <a href="{{ route('item', $borrow) }}" class="list-group-item list-group-item-action text-primary">
+                                            <a href="{{ route('items.show', $borrow) }}" class="list-group-item list-group-item-action text-primary">
                                                 <i class="fas fa-box fa-fw"></i>
                                                 {{ $borrow->name }}
                                             </a>
@@ -100,7 +100,7 @@
                                 <div class="row remove-row-bottom-space">
                                     @foreach ($menuCategories as $menuCategory)
                                         <div class="col-6 col-sm-4 col-lg-3 col-xl-2 mb-3">
-                                            <a href="{{ route('category', $menuCategory) }}" class="card">
+                                            <a href="{{ route('categories.show', $menuCategory) }}" class="card">
                                                 <div class="card-body text-center">
                                                     <i class="{{ $menuCategory->icon ? $menuCategory->icon : 'fas fa-cube' }} fa-2x"></i>
                                                     <div class="card-title h5 mt-3 mb-0">{{ $menuCategory->name }}</div>

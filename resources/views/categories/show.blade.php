@@ -24,7 +24,7 @@
                 <ul class="nav">
                     @foreach ($category->children as $child)
                         <li class="nav-item">
-                            <a href="{{ route('category', $child) }}" class="nav-link">{{ $child->name }}</a>
+                            <a href="{{ route('categories.show', $child) }}" class="nav-link">{{ $child->name }}</a>
                         </li>
                     @endforeach
                 </ul>
@@ -42,7 +42,7 @@
                             <div class="card h-100">
                                 <div class="card-body text-center">
                                     <h5 class="card-title">
-                                        <a href="{{ route('item', $item) }}">{{ $item->name }}</a>
+                                        <a href="{{ route('items.show', $item) }}">{{ $item->name }}</a>
                                     </h5>
                                     <div class="text-muted">{{ Str::limit($item->description, 50) }}</div>
                                 </div>

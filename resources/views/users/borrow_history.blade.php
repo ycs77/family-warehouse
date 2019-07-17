@@ -22,7 +22,7 @@
                 <tbody>
                     @forelse ($histories as $history)
                         <tr>
-                            <td><a href="{{ route('item', $history->item) }}">{{ $history->item->name }}</a></td>
+                            <td><a href="{{ route('items.show', $history->item) }}">{{ $history->item->name }}</a></td>
                             <td>
                                 @if ($history->parent)
                                     <a href="{{ route('users.show', $history->parent) }}">{{ $history->parent->name }}</a>

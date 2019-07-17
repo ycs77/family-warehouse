@@ -40,7 +40,7 @@
                     <td>
                         <div class="list-group list-group-thin">
                             @forelse ($user->borrows as $borrowItem)
-                                <a href="{{ route('item', $borrowItem) }}" class="list-group-item list-group-item-action text-primary">
+                                <a href="{{ route('items.show', $borrowItem) }}" class="list-group-item list-group-item-action text-primary">
                                     <i class="fas fa-box fa-fw"></i>
                                     {{ $borrowItem->name }}
                                 </a>

@@ -11,21 +11,17 @@ Route::middleware('auth')->group(function () {
     Route::get('history/proxy', 'HomeController@proxy_borrow_history')->name('history.proxy');
 
     // User
+    Route::resource('users', 'UserController');
     Route::get('users/{user}/password', 'UserController@password')->name('users.password');
     Route::put('users/{user}/password', 'UserController@updatePassword')->name('users.password.update');
-    Route::resource('users', 'UserController');
     Route::get('users/{user}/history/borrow', 'UserController@borrow_history')->name('users.history.borrow');
     Route::get('users/{user}/history/proxy', 'UserController@proxy_borrow_history')->name('users.history.proxy');
 
     // Category
-    Route::get('categories/create', 'CategoryController@create')->name('categories.create');
-    Route::get('categories/{category}', 'CategoryController@show')->name('category');
-    Route::resource('categories', 'CategoryController')->except('show');
+    Route::resource('categories', 'CategoryController');
 
     // Items
-    Route::get('items/create', 'ItemController@create')->name('items.create');
-    Route::get('items/{item}', 'ItemController@show')->name('item');
-    Route::resource('items', 'ItemController')->except('show');
+    Route::resource('items', 'ItemController');
 
     // Item borrow
     Route::get('items/{item}/qrcode', 'ItemBorrowController@qrcode')->name('items.qrcode');

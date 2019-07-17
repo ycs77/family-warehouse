@@ -46,7 +46,7 @@ class ScannerController extends Controller
             return redirect()->route('scanner.error');
         }
 
-        return redirect()->route('item', $item);
+        return redirect()->route('items.show', $item);
     }
 
     /**

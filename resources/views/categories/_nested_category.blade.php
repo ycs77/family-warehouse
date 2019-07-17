@@ -10,11 +10,11 @@
         <div>
             @if ($category->isRoot())
                 <h4>
-                    <a href="{{ route('category', $category) }}">{{ $category->name }}</a>
+                    <a href="{{ route('categories.show', $category) }}">{{ $category->name }}</a>
                 </h4>
             @else
                 <h6>
-                    <a href="{{ route('category', $category) }}">{{ $category->name }}</a>
+                    <a href="{{ route('categories.show', $category) }}">{{ $category->name }}</a>
                 </h6>
             @endif
 

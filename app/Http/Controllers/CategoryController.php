@@ -131,7 +131,7 @@ class CategoryController extends Controller
             $category->save();
         }
 
-        return redirect()->route('category', $category)
+        return redirect()->route('categories.show', $category)
             ->with('status', $this->updateSuccess("修改分類 {$category->name} 成功"));
     }
 

@@ -22,7 +22,7 @@
                 <tbody>
                     @forelse ($proxy_histories as $history)
                         <tr>
-                            <td><a href="{{ route('item', $history->item) }}">{{ $history->item->name }}</a></td>
+                            <td><a href="{{ route('items.show', $history->item) }}">{{ $history->item->name }}</a></td>
                             <td>
                                 <a href="{{ route('users.show', $history->user) }}">{{ $history->user->name }}</a>
                             </td>

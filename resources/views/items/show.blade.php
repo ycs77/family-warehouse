@@ -58,6 +58,8 @@
                             <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#qrcodeModal">
                                 顯示 QR code
                             </button>
+
+                            <a href="{{ asset('ai/qrcode-a4-example.ai') }}" class="btn btn-outline-success" download>下載 QR code A4 影印範例 (.ai)</a>
                         </div>
 
                         <!-- Modal -->

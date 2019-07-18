@@ -101,12 +101,12 @@ Breadcrumbs::for('items.edit', function ($trail, $item) {
 
 Breadcrumbs::for('items.borrow', function ($trail, $item) {
     $trail->parent('items.show', $item);
-    $trail->push('借出物品', route('items.borrow', $item));
+    $trail->push('借出物品', route('items.borrow.page', $item));
 });
 
 Breadcrumbs::for('items.return', function ($trail, $item) {
     $trail->parent('items.show', $item);
-    $trail->push('歸還物品', route('items.return', $item));
+    $trail->push('歸還物品', route('items.return.page', $item));
 });
 
 // Scanner

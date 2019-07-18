@@ -110,7 +110,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center text-muted">本物品尚未借出過</td>
+                                <td colspan="4" class="text-empty">本物品尚未借出過</td>
                             </tr>
                         @endforelse
                     </tbody>

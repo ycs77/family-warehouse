@@ -45,6 +45,16 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: -1rem;
 }
 
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: 0;
+  }
+}
+
 .card-center {
   .card-body {
     display: flex;
@@ -62,4 +72,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   svg, img {
     max-width: 100%;
   }
+}
+
+.text-empty {
+  color: $text-muted;
+  text-align: center;
 }

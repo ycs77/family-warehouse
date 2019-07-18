@@ -6,63 +6,67 @@
 
 @section('content')
     <div class="container-fluid py-2">
-        <h1 class="h3">{{ $category->name }}</h1>
+        <div class="header-actions">
+            <h1 class="h3">{{ $category->name }}</h1>
+
+            @can('edit', \App\Category::class)
+                <div>
+                    <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-success">修改</a>
+                    <button class="btn btn-sm btn-danger btn-destroy">刪除</button>
+                </div>
+            @endcan
+        </div>
         <hr class="my-2">
 
         <p class="lead">{{ $category->description }}</p>
 
-        @can('edit', \App\Category::class)
-            <div class="mb-3">
-                <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-success">修改</a>
-                <button class="btn btn-sm btn-danger btn-destroy">刪除</button>
+        <div class="card mb-4">
+            <div class="header-actions px-3 pt-3">
+                <h5>子分類</h5>
             </div>
-        @endcan
+            <ul class="nav">
+                @forelse ($category->children as $child)
+                    <li class="nav-item">
+                        <a href="{{ route('categories.show', $child) }}" class="nav-link">{{ $child->name }}</a>
+                    </li>
+                @empty
+                    <li class="nav-item nav-link text-empty">無</li>
+                @endforelse
+            </ul>
+        </div>
 
-        @if ($category->children->count())
-            <div class="card mb-4">
-                <h5 class="px-3 pt-3 m-0">子分類</h5>
-                <ul class="nav">
-                    @foreach ($category->children as $child)
-                        <li class="nav-item">
-                            <a href="{{ route('categories.show', $child) }}" class="nav-link">{{ $child->name }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <div class="mt-5">
+            <h4>分類物品</h4>
+            <hr class="my-2">
 
-        @if ($category->items->count())
-            <div class="mt-5">
-                <h4>分類物品</h4>
-                <hr class="my-2">
-
-                <div class="row">
-                    @foreach ($category->items as $item)
-                        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">
-                                        <a href="{{ route('items.show', $item) }}">{{ $item->name }}</a>
-                                    </h5>
-                                    <div class="text-muted">{{ Str::limit($item->description, 50) }}</div>
-                                </div>
-                                @if ($item->borrow_user)
-                                    <div class="card-footer text-center bg-success text-white">
-                                        現在已被
-                                        @can('edit', \App\User::class)
-                                            <a href="{{ route('users.show', $item->borrow_user) }}">{{ $item->borrow_user->name }}</a>
-                                        @else
-                                            {{ $item->borrow_user->name }}
-                                        @endcan
-                                        借走了
-                                    </div>
-                                @endif
+            <div class="row">
+                @forelse ($category->items as $item)
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">
+                                    <a href="{{ route('items.show', $item) }}">{{ $item->name }}</a>
+                                </h5>
+                                <div class="text-muted">{{ Str::limit($item->description, 50) }}</div>
                             </div>
+                            @if ($item->borrow_user)
+                                <div class="card-footer text-center bg-success text-white">
+                                    現在已被
+                                    @can('edit', \App\User::class)
+                                        <a href="{{ route('users.show', $item->borrow_user) }}">{{ $item->borrow_user->name }}</a>
+                                    @else
+                                        {{ $item->borrow_user->name }}
+                                    @endcan
+                                    借走了
+                                </div>
+                            @endif
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @empty
+                    <div class="col"><div class="text-empty">無</div></div>
+                @endforelse
             </div>
-        @endif
+        </div>
     </div>
 
     <form id="form-destroy" action="#" method="POST">

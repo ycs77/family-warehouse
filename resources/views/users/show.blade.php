@@ -45,7 +45,7 @@
                                     {{ $borrowItem->name }}
                                 </a>
                             @empty
-                                <div class="list-group-item text-center text-muted">沒有借出物品</div>
+                                <div class="list-group-item text-empty">沒有借出物品</div>
                             @endforelse
                         </div>
                     </td>
@@ -65,7 +65,7 @@
                                         {{ $child->name }}
                                     </a>
                                 @empty
-                                    <div class="list-group-item text-center text-muted">沒有代管小孩</div>
+                                    <div class="list-group-item text-empty">沒有代管小孩</div>
                                 @endforelse
                             </div>
                         </td>

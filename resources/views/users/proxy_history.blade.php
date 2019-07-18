@@ -31,7 +31,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center text-muted">尚未代借過物品</td>
+                            <td colspan="4" class="text-empty">尚未代借過物品</td>
                         </tr>
                     @endforelse
                 </tbody>

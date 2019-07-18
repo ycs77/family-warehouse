@@ -6,18 +6,17 @@
 
 @section('content')
     <div class="container-fluid py-2">
-        <h1 class="h3">分類管理</h1>
-        <hr class="my-2">
-
-        <div class="mb-3">
+        <div class="header-actions">
+            <h1 class="h3">分類管理</h1>
             <a href="{{ route('categories.create') }}" class="btn btn-sm btn-success">新增</a>
         </div>
+        <hr class="my-2">
 
         @forelse ($categories as $category)
             @include('categories._nested_category')
         @empty
             <ul class="list-group list-nested">
-                <li class="list-group-item text-center text-muted">無</li>
+                <li class="list-group-item text-empty">無</li>
             </ul>
         @endforelse
 

@@ -47,7 +47,7 @@
                                     {{ $borrowItem->name }}
                                 </a>
                             @empty
-                                <div class="list-group-item text-center text-muted">沒有借出物品</div>
+                                <div class="list-group-item text-empty">沒有借出物品</div>
                             @endforelse
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                         @forelse ($user->children as $child)
                             <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3">
                                 <div class="card">
-                                    <div class="card-header d-flex justify-content-between">
+                                    <div class="card-header header-actions">
                                         <h5 class="mb-0">
                                             <i class="fas fa-user text-primary"></i>
                                             {{ $child->name }}
@@ -77,13 +77,13 @@
                                                 {{ $borrow->name }}
                                             </a>
                                         @empty
-                                            <div class="list-group-item text-center text-muted">沒有借出物品</div>
+                                            <div class="list-group-item text-empty">沒有借出物品</div>
                                         @endforelse
                                     </div>
                                 </div>
                             </div>
                         @empty
-                            <div class="col mb-3 text-center text-muted">尚未幫小孩代借</div>
+                            <div class="col mb-3 text-empty">尚未幫小孩代借</div>
                         @endforelse
                     </div>
                 </div>

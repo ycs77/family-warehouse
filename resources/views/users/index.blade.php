@@ -6,12 +6,11 @@
 
 @section('content')
     <div class="container-fluid py-2">
-        <h1 class="h3">用戶管理</h1>
-        <hr class="my-2">
-
-        <div class="mb-2">
+        <div class="header-actions">
+            <h1 class="h3">用戶管理</h1>
             <a href="{{ route('users.create') }}" class="btn btn-sm btn-success">新增</a>
         </div>
+        <hr class="my-2">
 
         <div class="table-responsive">
             <table class="table">
@@ -53,7 +52,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center text-muted">無</td>
+                            <td colspan="5" class="text-empty">無</td>
                         </tr>
                     @endforelse
                 </tbody>

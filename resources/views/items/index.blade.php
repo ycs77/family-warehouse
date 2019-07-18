@@ -8,12 +8,13 @@
 
 @section('content')
     <div class="container-fluid py-2">
-        <h1 class="h3">物品列表</h1>
+        <div class="header-actions">
+            <h1 class="h3">物品列表</h1>
+            <a href="{{ route('items.create') }}" class="btn btn-sm btn-success">新增</a>
+        </div>
         <hr class="my-2">
 
         <div class="mb-2">
-            <a href="{{ route('items.create') }}" class="btn btn-sm btn-success">新增</a>
-
             <div class="form-inline d-inline-flex ml-3">
                 篩選：
                 <div class="input-group input-group-sm">
@@ -79,7 +80,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="@can('edit', \App\Item::class) 6 @else 5 @endcan" class="text-center text-muted">無</td>
+                            <td colspan="@can('edit', \App\Item::class) 6 @else 5 @endcan" class="text-empty">無</td>
                         </tr>
                     @endforelse
                 </tbody>

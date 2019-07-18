@@ -64,6 +64,13 @@ class User extends Authenticatable
         return $this->hasMany(History::class, 'parent_user_id');
     }
 
+    /**
+     * Get self or child user to borrow item.
+     * User call it.
+     *
+     * @param  User  $borrow_user
+     * @return User|null
+     */
     public function getSelfOrChildToBorrow(User $borrow_user)
     {
         return $this->children
@@ -75,6 +82,13 @@ class User extends Authenticatable
             ->first();
     }
 
+    /**
+     * Update user children.
+     * User call it.
+     *
+     * @param  mixed  $children
+     * @return User
+     */
     public function updateChildren($children)
     {
         $childrenIds = $this->whereIn('id', $children)
@@ -91,6 +105,13 @@ class User extends Authenticatable
         return $this;
     }
 
+    /**
+     * Check child is exists to user.
+     * Child call it.
+     *
+     * @param  User|null  $user
+     * @return bool
+     */
     public function isExistsTo($user = null): bool
     {
         if (!$user || $this->role !== 'child') {

@@ -6,17 +6,19 @@
 
 @section('content')
     <div class="container-fluid py-2">
-        <h1 class="h3">{{ $item->name }}</h1>
+        <div class="header-actions">
+            <h1 class="h3">{{ $item->name }}</h1>
+
+            @can('edit', \App\Item::class)
+                <div>
+                    <a href="{{ route('items.edit', $item) }}" class="btn btn-sm btn-success">修改</a>
+                    <button class="btn btn-sm btn-danger btn-destroy">刪除</button>
+                </div>
+            @endcan
+        </div>
         <hr class="my-2">
 
         <p class="lead">{{ $item->description }}</p>
-
-        @can('edit', \App\Item::class)
-            <div class="mb-3">
-                <a href="{{ route('items.edit', $item) }}" class="btn btn-sm btn-success">修改</a>
-                <button class="btn btn-sm btn-danger btn-destroy">刪除</button>
-            </div>
-        @endcan
 
         <div class="row">
             <div class="col-md mb-3">
@@ -120,6 +122,11 @@
             {{ $histories->links() }}
         </div>
     </div>
+
+    <form id="form-destroy" action="#" method="POST">
+        @csrf
+        @method('DELETE')
+    </form>
 @endsection
 
 @push('script')

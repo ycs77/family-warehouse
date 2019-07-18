@@ -19,6 +19,10 @@ Route::middleware('auth')->group(function () {
 
     // Category
     Route::resource('categories', 'CategoryController');
+    Route::get('categories/{category}/sub/create', 'CategoryController@createSub')->name('categories.sub.create');
+    Route::post('categories/{category}/sub', 'CategoryController@storeSub')->name('categories.sub.store');
+    Route::get('categories/{category}/item/create', 'ItemController@createFromCategory')->name('categories.item.create');
+    Route::post('categories/{category}/item', 'ItemController@storeFromCategory')->name('categories.item.store');
 
     // Items
     Route::resource('items', 'ItemController');

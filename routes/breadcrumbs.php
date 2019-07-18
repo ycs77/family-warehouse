@@ -74,6 +74,16 @@ Breadcrumbs::for('categories.edit', function ($trail, $category) {
     $trail->push('編輯分類', route('categories.edit', $category));
 });
 
+Breadcrumbs::for('categories.sub.create', function ($trail, $category) {
+    $trail->parent('categories.show', $category);
+    $trail->push('新增子分類', route('categories.sub.create', $category));
+});
+
+Breadcrumbs::for('categories.item.create', function ($trail, $category) {
+    $trail->parent('categories.show', $category);
+    $trail->push('新增物品', route('categories.item.create', $category));
+});
+
 // Item
 Breadcrumbs::for('items.index', function ($trail) {
     $trail->parent('home');

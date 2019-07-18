@@ -69,13 +69,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $data = $this->validateFormData($request);
-        $parent_id = $request->input('parent_id');
+        $data['parent_id'] = $request->input('parent_id');
 
         $category = Category::create($data);
-        $category->parent_id = $parent_id;
-        $category->save();
 
-        return redirect()->route('categories.index')
+        return redirect()->route('categories.show', $category)
             ->with('status', $this->createSuccess("新增分類 {$category->name} 成功"));
     }
 
@@ -123,13 +121,13 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $data = $this->validateFormData($request);
+
         $parent_id = $request->input('parent_id');
+        if ($category->parent_id !== $parent_id) {
+            $data['parent_id'] = $parent_id;
+        }
 
         $category->update($data);
-        if ($category->parent_id !== $parent_id) {
-            $category->parent_id = $parent_id;
-            $category->save();
-        }
 
         return redirect()->route('categories.show', $category)
             ->with('status', $this->updateSuccess("修改分類 {$category->name} 成功"));
@@ -148,5 +146,39 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index')
             ->with('status', $this->deleteSuccess("刪除分類 $name 成功"));
+    }
+
+    /**
+     * Show the form for creating a new sub category.
+     *
+     * @param  \App\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function createSub(Category $category)
+    {
+        $form = $this->renderForm([
+            'url' => route('categories.sub.store', $category),
+            'method' => 'POST',
+        ]);
+
+        return view('categories.create_sub', compact('category', 'form'));
+    }
+
+    /**
+     * Store a newly created sub category in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function storeSub(Request $request, Category $category)
+    {
+        $data = $this->validateFormData($request);
+        $data['parent_id'] = $category->id;
+
+        $subCategory = Category::create($data);
+
+        return redirect()->route('categories.show', $subCategory)
+            ->with('status', $this->createSuccess("新增子分類 {$subCategory->name} 成功"));
     }
 }

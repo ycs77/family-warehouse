@@ -96,7 +96,7 @@ class UserController extends Controller
             $user->updateChildren($request->input('children'));
         }
 
-        return redirect()->route('users.index')
+        return redirect()->route('users.show', $user)
             ->with('status', $this->createSuccess("新增用戶 {$user->name} 成功"));
     }
 

@@ -22,6 +22,7 @@
                 <p class="mb-2">{{ $category->description }}</p>
             @endif
 
+            <a href="{{ route('categories.sub.create', $category) }}" class="btn btn-sm btn-outline-success">新增子分類</a>
             <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-success">修改</a>
             <button type="button" class="btn btn-sm btn-danger btn-destroy">刪除</button>
         </div>

@@ -23,6 +23,10 @@
         <div class="card mb-4">
             <div class="header-actions px-3 pt-3">
                 <h5>子分類</h5>
+
+                @can('edit', \App\Category::class)
+                    <a href="{{ route('categories.sub.create', $category) }}" class="btn btn-sm btn-outline-success">新增子分類</a>
+                @endcan
             </div>
             <ul class="nav">
                 @forelse ($category->children as $child)
@@ -36,7 +40,12 @@
         </div>
 
         <div class="mt-5">
-            <h4>分類物品</h4>
+            <div class="header-actions">
+                <h4>分類物品</h4>
+                @can('edit', \App\Item::class)
+                    <a href="{{ route('categories.item.create', $category) }}" class="btn btn-sm btn-outline-success">新增物品</a>
+                @endcan
+            </div>
             <hr class="my-2">
 
             <div class="row">

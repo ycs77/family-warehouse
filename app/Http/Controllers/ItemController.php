@@ -93,7 +93,7 @@ class ItemController extends Controller
 
         $item = Item::create($data);
 
-        return redirect()->route('items.index')
+        return redirect()->route('items.show', $item)
             ->with('status', $this->createSuccess("新增物品 {$item->name} 成功"));
     }
 
@@ -165,5 +165,37 @@ class ItemController extends Controller
 
         return redirect()->route('items.index')
             ->with('status', $this->deleteSuccess("刪除物品 $name 成功"));
+    }
+
+    /**
+     * Show the form for creating a new category item.
+     *
+     * @param  \App\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function createFromCategory(Category $category)
+    {
+        $form = $this->renderForm([
+            'url' => route('categories.item.store', $category),
+            'method' => 'POST',
+        ]);
+
+        return view('items.create_from_category', compact('category', 'form'));
+    }
+
+    /**
+     * Store a newly created category item in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function storeFromCategory(Request $request, Category $category)
+    {
+        $data = $this->validateFormData($request);
+        $item = $category->items()->create($data);
+
+        return redirect()->route('items.show', $item)
+            ->with('status', $this->createSuccess("新增物品 {$item->name} 成功"));
     }
 }

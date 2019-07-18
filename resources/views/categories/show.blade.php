@@ -49,7 +49,7 @@
             <hr class="my-2">
 
             <div class="row">
-                @forelse ($category->items as $item)
+                @forelse ($category_items as $item)
                     <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
                         <div class="card h-100">
                             <div class="card-body text-center">
@@ -72,9 +72,11 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col"><div class="text-empty">無</div></div>
+                    <div class="col"><div class="text-empty py-3">無</div></div>
                 @endforelse
             </div>
+
+            {{ $category_items->links() }}
         </div>
     </div>
 

@@ -31,7 +31,6 @@ class AppServiceProvider extends ServiceProvider
 
         // Register Components
         Blade::component('components.alert', 'alert');
-        Blade::component('components.breadcrumb', 'breadcrumb');
 
         // Custom Blade Directive
         Blade::directive('active', function ($pattern) {

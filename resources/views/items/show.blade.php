@@ -55,11 +55,13 @@
                     <h5 class="card-header bg-primary text-white">QR code</h5>
                     <div class="card-body">
                         <div class="text-center">
-                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#qrcodeModal">
-                                顯示 QR code
-                            </button>
+                            <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#qrcodeModal">顯示 QR code</button>
 
-                            <a href="{{ asset('ai/qrcode-a4-example.ai') }}" class="btn btn-outline-success" download>下載 QR code A4 影印範例 (.ai)</a>
+                            <a href="{{ route('items.qrcode', $item) }}" class="btn btn-success mb-1" download="{{ $item->name }}">下載 QR code</a>
+                        </div>
+
+                        <div class="text-center mt-2">
+                            <a href="{{ asset('ai/qrcode-a4-example.ai') }}" class="btn btn-outline-success mb-1" download>下載 QR code A4 影印範例 (.ai)</a>
                         </div>
 
                         <!-- Modal -->

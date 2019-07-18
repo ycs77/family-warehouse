@@ -35,8 +35,8 @@ class ItemBorrowController extends Controller
     public function qrcode(Item $item)
     {
         $img = QrCode::size(300)->generate(Hashids::encode($item->id));
-        return response($img)
-            ->header('Content-Type', 'image/svg+xml');
+
+        return response($img)->header('Content-Type', 'image/svg+xml');
     }
 
     /**

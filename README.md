@@ -39,3 +39,17 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 ```
+
+## 產生 A4 物品 QR code 影印圖片
+
+輸入需產生的物品的ID
+
+```
+php artisan warehouse:items-img:a4 1-2,5-7
+```
+
+清除站存圖片
+
+```
+php artisan warehouse:items-img:clear
+```

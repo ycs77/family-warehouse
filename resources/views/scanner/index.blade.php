@@ -34,6 +34,9 @@
             let mirror = camera.name.indexOf('back') === -1;
             let scanner = new Instascan.Scanner({ video: document.getElementById('scanner'), scanPeriod: 5, mirror: mirror });
             scanner.addListener('scan', function (content) {
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(200);
+                }
                 $('#form-decode input[type=hidden][name=code]').val(content);
                 $('#form-decode').submit();
             });

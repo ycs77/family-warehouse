@@ -24,25 +24,6 @@ class ItemBorrowController extends Controller
             $this->authorize('view', Item::class);
             return $next($request);
         });
-
-        $this->middleware(function ($request, $next) {
-            $item = $request->item;
-            $borrow_user = $request->user()->getSelfOrChildToBorrow($item);
-
-            if (!$item->borrow_user) {
-                return redirect()->route('items.show', $item)
-                    ->with('status', $this->error("現在沒有借走 {$item->name}，所以不能歸還。"));
-            }
-
-            if ($request->user()->cant('edit', Item::class)) {
-                if (!$borrow_user) {
-                    return redirect()->route('items.show', $item)
-                        ->with('status', $this->error("您/您代管的小孩沒有借走 {$item->name}"));
-                }
-            }
-
-            return $next($request);
-        })->only(['returnPage', 'return']);
     }
 
     /**
@@ -79,13 +60,18 @@ class ItemBorrowController extends Controller
      */
     public function borrow(Request $request, Item $item, User $user)
     {
+        $borrow_user = $request->user()->getSelfOrChildToBorrow($user);
+        $user = $request->user();
+
         if ($item->borrow_user) {
             return redirect()->route('items.show', $item)
                 ->with('status', $this->error("無法借出 {$item->name}，因為已經被 {$item->borrow_user->name} 借走了！"));
         }
 
-        $borrow_user = $user;
-        $user = $request->user();
+        if (!$borrow_user) {
+            return redirect()->route('items.show', $item)
+                ->with('status', $this->error('您無法為非代管的小孩借物'));
+        }
 
         $item->update([
             'borrow_user_id' => $borrow_user->id,
@@ -123,9 +109,21 @@ class ItemBorrowController extends Controller
     public function return(Request $request, Item $item)
     {
         $user = $request->user();
-        $borrow_user = $request->user()->getSelfOrChildToBorrow($item);
+        $borrow_user = $user->getSelfOrChildToBorrow($item->borrow_user);
 
-        $item_old = $item->fresh('borrow_user');
+        if (!$item->borrow_user) {
+            return redirect()->route('items.show', $item)
+                ->with('status', $this->error("現在沒有借走 {$item->name}，所以不能歸還。"));
+        }
+
+        if ($user->cant('edit', Item::class)) {
+            if (!$borrow_user) {
+                return redirect()->route('items.show', $item)
+                    ->with('status', $this->error("您/您代管的小孩沒有借走 {$item->name}"));
+            }
+        }
+
+        $item_borrow_user = $item->borrow_user;
         $item->update([
             'borrow_user_id' => null,
         ]);
@@ -138,10 +136,10 @@ class ItemBorrowController extends Controller
             ]);
         } else {
             // 跟借物者非親非故，但我是管理者，所以可以強制歸還
-            if ($request->user()->can('edit', Item::class)) {
+            if ($user->can('edit', Item::class)) {
                 $item->histories()->create([
                     'action' => 'return',
-                    'user_id' => $item_old->borrow_user->id,
+                    'user_id' => $item_borrow_user->id,
                     'parent_user_id' => $user->id,
                 ]);
             }

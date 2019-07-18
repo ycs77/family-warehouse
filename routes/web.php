@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     // Item borrow
     Route::get('items/{item}/qrcode', 'ItemBorrowController@qrcode')->name('items.qrcode');
     Route::get('items/{item}/borrow', 'ItemBorrowController@borrowPage')->name('items.borrow.page');
-    Route::post('items/{item}/borrow/{user?}', 'ItemBorrowController@borrow')->name('items.borrow');
+    Route::post('items/{item}/borrow/{user}', 'ItemBorrowController@borrow')->name('items.borrow');
     Route::get('items/{item}/return', 'ItemBorrowController@returnPage')->name('items.return.page');
     Route::post('items/{item}/return', 'ItemBorrowController@return')->name('items.return');
 

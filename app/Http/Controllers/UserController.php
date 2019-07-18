@@ -79,19 +79,22 @@ class UserController extends Controller
     {
         $data = $this->validateFormData($request);
 
-        $request->validate([
-            'children' => 'array',
-            'children.*' => 'required|numeric',
-        ]);
-
         unset($data['password_confirmation']);
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         }
 
-        // children
-
         $user = User::create($data);
+
+        // Update user children
+        $request->validate([
+            'children' => 'array',
+            'children.*' => 'required|numeric',
+        ]);
+
+        if ($request->input('children')) {
+            $user->updateChildren($request->input('children'));
+        }
 
         return redirect()->route('users.index')
             ->with('status', $this->createSuccess("新增用戶 {$user->name} 成功"));
@@ -143,24 +146,15 @@ class UserController extends Controller
         if ($user->role === 'child') {
             $user->children()->sync([]);
         } else {
-            // Add children
+            // Update user children
             $request->validate([
                 'children' => 'array',
                 'children.*' => 'required|numeric',
             ]);
 
             if ($request->input('children')) {
-                $children = User::whereIn('id', $request->input('children'))
-                    ->where('id', '<>', $user->id)
-                    ->where('role', 'child')
-                    ->get()
-                    ->map(function ($child) {
-                        return $child->id;
-                    });
-                $user->children()->sync($children);
+                $user->updateChildren($request->input('children'));
             }
-
-            $user->parents()->sync([]);
         }
 
         return redirect()->route('users.show', $user)
@@ -180,6 +174,8 @@ class UserController extends Controller
         }
 
         $name = $user->name;
+        $user->children()->sync([]);
+        $user->parents()->sync([]);
         $user->delete();
 
         return redirect()->route('users.index')

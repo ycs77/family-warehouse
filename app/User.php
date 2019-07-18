@@ -64,23 +64,39 @@ class User extends Authenticatable
         return $this->hasMany(History::class, 'parent_user_id');
     }
 
-    public function getSelfOrChildToBorrow(Item $item)
+    public function getSelfOrChildToBorrow(User $borrow_user)
     {
         return $this->children
             ->prepend($this)
-            ->filter(function ($user) use ($item) {
-                return $user->id === $item->borrow_user->id;
+            ->filter(function ($user) use ($borrow_user) {
+                return $user->id === $borrow_user->id;
             })
             ->filter()
             ->first();
     }
 
-    public function isExistsTo($user = null)
+    public function updateChildren($children)
+    {
+        $childrenIds = $this->whereIn('id', $children)
+            ->where('id', '<>', $this->id)
+            ->where('role', 'child')
+            ->get()
+            ->map(function ($child) {
+                return $child->id;
+            });
+
+        $this->parents()->sync([]);
+        $this->children()->sync($childrenIds);
+
+        return $this;
+    }
+
+    public function isExistsTo($user = null): bool
     {
         if (!$user || $this->role !== 'child') {
             return false;
         }
 
-        return $user->children()->where('id', $this->id)->exists();
+        return $user->children->where('id', $this->id)->isNotEmpty();
     }
 }

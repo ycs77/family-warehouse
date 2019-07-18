@@ -34,7 +34,7 @@
                                 借走了
                             </div>
 
-                            @if (Auth::user()->getSelfOrChildToBorrow($item))
+                            @if (Auth::user()->getSelfOrChildToBorrow($item->borrow_user))
                                 <form action="{{ route('items.return', $item) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-primary">歸還</button>

@@ -42,13 +42,25 @@ php artisan view:cache
 
 ## 產生 A4 物品 QR code 影印圖片
 
-輸入需產生的物品的ID
+產生的 A4 圖片影印完成、並剪裁後，貼至物品上，即可使用網站中的掃描器掃描該 QR code，取得相關資訊。輸出的圖片會存在 `storage/app/print_a4` 資料夾下。輸入需產生的物品的ID：
 
 ```
 php artisan warehouse:items-img:a4 1-2,5-7
 ```
 
-清除站存圖片
+忽視暫存圖片，強制重新生成 QR code：
+
+```
+php artisan warehouse:items-img:a4 1-2,5-7 --force
+```
+
+完全照著輸入的 ID 產生圖片，包括重複的 ID：
+
+```
+php artisan warehouse:items-img:a4 1-2,5-7 -r
+```
+
+清除暫存圖片：
 
 ```
 php artisan warehouse:items-img:clear

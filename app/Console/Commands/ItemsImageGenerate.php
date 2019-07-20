@@ -17,7 +17,8 @@ class ItemsImageGenerate extends Command
      * @var string
      */
     protected $signature = 'warehouse:items-img:a4
-                            {itemsid : The items id, use "," delimited, use "-" designation range}
+                            {itemsid : The items id, use "," delimited, use "-" designation range. Ex: 1,3-5}
+                            {--r|repeat : Output duplicate items}
                             {--force : Force the operation to make QR code image}';
 
     /**
@@ -58,7 +59,7 @@ class ItemsImageGenerate extends Command
      */
     public function handle()
     {
-        $items = Item::whereIn('id', $this->getItemsId($this->argument('itemsid')))->get();
+        $items = $this->getItems();
 
         if ($items->isEmpty()) {
             $this->error('The items is not found!');
@@ -133,10 +134,24 @@ class ItemsImageGenerate extends Command
         $this->info('Successfully make the items A4 image.');
     }
 
-    protected function getItemsId(string $ids)
+    public function getItems()
+    {
+        $ids = $this->getItemsId();
+        $items = Item::whereIn('id', $ids)->get();
+
+        if ($this->option('repeat')) {
+            return collect($ids)->map(function ($id) use ($items) {
+                return $items->where('id', $id)->first();
+            });
+        }
+
+        return $items;
+    }
+
+    protected function getItemsId()
     {
         $items = [];
-        $ids = str_replace(' ', '', $ids);
+        $ids = str_replace(' ', '', $this->argument('itemsid'));
 
         foreach (explode(',', $ids) as $group) {
             if (preg_match('/\d-\d/', $group)) {

@@ -66,8 +66,11 @@ class ItemsImageGenerate extends Command
             return false;
         }
 
+        $imgName = now()->format('Y-m-d-H-i-s');
+        // Main canvas data
         $width = $this->getHdDpiPx(595);
         $height = $this->getHdDpiPx(842);
+        // Box
         $x = $this->getHdDpiPx(43);
         $y = $this->getHdDpiPx(45);
         $box_width = $this->getHdDpiPx(85);
@@ -76,17 +79,19 @@ class ItemsImageGenerate extends Command
         $rows_num = 7;
         $per_page = $columns_num * $rows_num;
         $page_total = (int)ceil($items->count() / $per_page);
+        // Text
         $line_text_num = 8;
 
         // Pagination
         foreach (range(1, $page_total) as $page) {
-            // White background
+            // Main canvas
             $image = $this->image->canvas($width, $height, '#ffffff');
 
             // For this page's QR code
             foreach ($items->forPage($page, $per_page) as $i => $item) {
-                $offset_x = $i % $columns_num;
-                $offset_y = (int)floor($i / $columns_num);
+                $page_i = $i % $per_page;
+                $offset_x = $page_i % $columns_num;
+                $offset_y = ($page_i - $page_i % $columns_num) / $columns_num;
 
                 // Item QR code
                 $itemQrcode = $this->image->make($this->getQrcode($item->id, $box_width));
@@ -96,6 +101,7 @@ class ItemsImageGenerate extends Command
                     $x + $box_width * $offset_x,
                     $y + $box_height * $offset_y
                 );
+                $itemQrcode->destroy();
 
                 // Rectangle border
                 $image->rectangle(
@@ -113,12 +119,17 @@ class ItemsImageGenerate extends Command
                 $lines = explode("\n", wordwrap($item->name, $line_text_num * strlen('文'), "\n", true));
                 $text_y = $y + $box_width + 8 + $box_height * $offset_y;
                 foreach ($lines as $line) {
-                    $image->text($line, $x + $box_width * $offset_x + $box_width / 2, $text_y, function ($font) {
-                        $font->file(resource_path('fonts/msjh.ttc'));
-                        $font->size(24);
-                        $font->align('center');
-                        $font->valign('top');
-                    });
+                    $image->text(
+                        $line,
+                        $x + $box_width * $offset_x + $box_width / 2,
+                        $text_y,
+                        function ($font) {
+                            $font->file(resource_path('fonts/msjh.ttc'));
+                            $font->size(24);
+                            $font->align('center');
+                            $font->valign('top');
+                        }
+                    );
                     $text_y += 30;
                 }
             }
@@ -127,8 +138,8 @@ class ItemsImageGenerate extends Command
                 $this->disk->makeDirectory('print_a4');
             }
 
-            $imgName = now()->format('Y-m-d-H-i-s') . ($page_total > 1 ? "-$page" : '');
-            $image->save(storage_path("app/print_a4/$imgName.jpg"));
+            $imgFullName = $imgName . ($page_total > 1 ? "-$page" : '');
+            $image->save(storage_path("app/print_a4/$imgFullName.jpg"))->destroy();
         }
 
         $this->info('Successfully make the items A4 image.');

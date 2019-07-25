@@ -6,7 +6,14 @@ use App\User;
 
 class Permission
 {
-    static public function check($permission, User $user)
+    /**
+     * Check the user is has permission.
+     *
+     * @param  [type] $permission
+     * @param  \App\User $user
+     * @return boolean
+     */
+    static public function check($permission, User $user): bool
     {
         $role = $user->role;
         $permissions = config("auth.roles.$role", []);

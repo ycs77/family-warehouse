@@ -69,3 +69,7 @@ php artisan warehouse:items-img:a4 1-2,5-7 -r
 ```
 php artisan warehouse:items-img:clear
 ```
+
+## LICENSE
+
+[![CC0 badge](https://licensebuttons.net/p/zero/1.0/80x15.png)](./LICENSE)
